@@ -13,7 +13,13 @@ export const metadata: Metadata = {
   title: 'viewto.me',
   description: 'Análise e extração de dados de textos desestruturados com IA. Insights Além do Óbvio para empresas customer-centric.',
   icons: {
-    icon: 'https://storage.googleapis.com/publics-svg/favicon32px.svg',
+    icon: [
+      { url: 'https://storage.googleapis.com/publics-svg/favicon32px.svg', type: 'image/svg+xml', sizes: 'any' }
+    ],
+    shortcut: { url: 'https://storage.googleapis.com/publics-svg/favicon32px.svg', type: 'image/svg+xml' },
+    apple: [
+      { url: 'https://storage.googleapis.com/publics-svg/favicon32px.svg', type: 'image/svg+xml', sizes: 'any' }
+    ]
   },
 };
 
