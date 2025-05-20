@@ -1,9 +1,13 @@
+
 // This file contains the raw textual content for the documentation pages.
 
 export const INTRODUCTION_MAIN = `
-<p>Bem-vindo à documentação da API viewto.me. Esta API permite extrair informações de vários tipos de documentos.</p>
+<p>Bem-vindo à documentação da API viewto.me!</p>
+
+<p>Nossa API é capaz de analisar dados desestruturados, seja uma conversa de chat, documentos pequenos ou grandes. Também oferecemos extração de dados de forma estruturada, permitindo que os usuários obtenham o máximo de informações tanto de documentos quanto de conversas.</p>
+
 <h2>Autenticação</h2>
-<p>Atualmente, a API não requer autenticação para os endpoints documentados. Isso pode mudar no futuro, portanto, consulte esta documentação para atualizações.</p>
+<p>Atualmente, a autenticação da API é realizada via JWT (JSON Web Token). No entanto, esta documentação ainda está em construção e, por enquanto, não inclui detalhes sobre o processo de autenticação. Consulte esta página futuramente para atualizações e instruções completas sobre como autenticar suas requisições.</p>
 `;
 export const INTRODUCTION_CODE = `
 <div style="margin-right: 30px;">
@@ -44,7 +48,7 @@ export const DOCS_MIME_TYPE_CONTENT = `
 
 export const DOCS_ID_CONTENT = `
 <h2>docsId</h2>
-<p><strong>Tipo:</strong> String | Número (Opcional)</p>
+<p><strong>Tipo:</strong> String | Número (Obrigatório)</p>
 <p>Um identificador para o documento que está sendo enviado. Este campo é de formato livre, permitindo que os clientes usem seu ID preferido para correlacionar as respostas da API com seus registros internos.</p>
 `;
 
@@ -80,23 +84,20 @@ export const DOCUMENTS_OBJECT_CODE = `
 export const OPTIONS_RG_CONTENT = `
 <h3>Opções para 'rg'</h3>
 <ul>
+  <li><code>nomeCompleto</code></li>
+  <li><code>nacionalidade</code></li>
   <li><code>dataNascimento</code></li>
-  <li><code>estadoDocumentoIdentidadeEmitido</code></li>
   <li><code>estadoNascimento</code></li>
   <li><code>filiacaoMae</code></li>
   <li><code>filiacaoPai</code></li>
-  <li><code>nacionalidade</code></li>
-  <li><code>nomeCompleto</code></li>
   <li><code>numeroCpf</code></li>
-  <li><code>numeroDocumentoIdentidade</code></li>
-  <li><code>orgaoEmissorDocumentoIdentidade</code></li>
-  <li><code>categoriaHabilitacao</code> (Nota: Este parece ser um campo da CNH, listado sob RG no prompt. Incluído para precisão em relação ao prompt.)</li>
-  <li><code>cidadeEmissaoCnh</code> (Nota: campo da CNH)</li>
-  <li><code>data1aHabilitacao</code> (Nota: campo da CNH)</li>
-  <li><code>dataEmissaoCnh</code> (Nota: campo da CNH)</li>
-  <li><code>dataValidadeCnh</code> (Nota: campo da CNH)</li>
-  <li><code>estadoEmissaoCnh</code> (Nota: campo da CNH)</li>
-  <li><code>numeroRegistroCnh</code> (Nota: campo da CNH)</li>
+  <li><code>cidadeEmissaoRg</code></li>
+  <li><code>estadoEmissaoRg</code></li>
+  <li><code>dataEmissaoRg</code></li>
+  <li><code>dataValidadeRg</code></li>
+  <li><code>orgaoEmissorRg</code></li>
+  <li><code>numeroRegistroRg</code></li>
+  <li><code>numeroRg</code></li>
 </ul>
 `;
 
@@ -110,6 +111,9 @@ export const OPTIONS_CNH_CONTENT = `
   <li><code>filiacaoMae</code></li>
   <li><code>filiacaoPai</code></li>
   <li><code>numeroCpf</code></li>
+  <li><code>numeroDocumentoIdentidade</code></li>
+  <li><code>orgaoEmissorDocumentoIdentidade</code></li>
+  <li><code>estadoDocumentoIdentidadeEmitido</code></li>
   <li><code>numeroRegistroCnh</code></li>
   <li><code>categoriaHabilitacao</code></li>
   <li><code>cidadeEmissaoCnh</code></li>
@@ -139,56 +143,58 @@ export const OPTIONS_COMPROVANTE_RESIDENCIA_CONTENT = `
 export const OPTIONS_CONTRATO_SOCIAL_CONTENT = `
 <h3>Opções para 'contratoSocial'</h3>
 <ul>
-  <li><code>atividadesEmpresa</code></li>
-  <li><code>contratoConsolidado</code></li>
-  <li><li><code>contratoRegistrado</code></li>
-  <li><code>dataLimiteMandadoContrato</code></li>
-  <li><code>formaRepresentacaoContrato</code></li>
+  <li><code>nomeParte</code></li>
   <li><code>cpfParte</code></li>
   <li><code>dataNascParte</code></li>
-  <li><code>cepVia</code></li>
-  <li><code>cidadeVia</code></li>
-  <li><code>complementoVia</code></li>
-  <li><code>enderecoCompleto</code></li>
-  <li><code>estadoVia</code></li>
-  <li><code>nomeVia</code></li>
-  <li><code>numeroVia</code></li>
-  <li><code>tipoVia</code></li>
   <li><code>estadoCivilParte</code></li>
   <li><code>nacionalidadeParte</code></li>
-  <li><code>nomeParte</code></li>
   <li><code>profissaoParte</code></li>
-  <li><code>prazoMandatoContrato</code></li>
+  <li><code>enderecoTipoVia</code></li>
+  <li><code>enderecoNomeVia</code></li>
+  <li><code>enderecoNumeroVia</code></li>
+  <li><code>enderecoComplementoVia</code></li>
+  <li><code>enderecoCidadeVia</code></li>
+  <li><code>enderecoEstadoVia</code></li>
+  <li><code>enderecoBairroVia</code></li>
+  <li><code>enderecoCepVia</code></li>
+  <li><code>enderecoCompleto</code></li>
+  <li><code>contratoConsolidado</code></li>
   <li><code>tipoAssinaturaContrato</code></li>
+  <li><code>formaRepresentacaoContrato</code></li>
+  <li><code>prazoMandatoContrato</code></li>
   <li><code>vedacoesContrato</code></li>
+  <li><code>atividadesEmpresa</code></li>
+  <li><code>contratoRegistrado</code></li>
+  <li><code>dataLimiteMandadoContrato</code></li>
 </ul>
 `;
 
 export const OPTIONS_ATA_ELEICAO_DIRETORIA_CONTENT = `
 <h3>Opções para 'ataEleicaoDiretoria'</h3>
 <ul>
-  <li><code>ataRegistrada</code></li>
-  <li><code>dataEmissaoAta</code></li>
-  <li><code>dataFinalMandato</code></li>
-  <li><code>formaRepresentacaoContrato</code></li>
-  <li><code>ordemDiaAta</code></li>
+  <li><code>nomeParte</code></li>
   <li><code>cpfParte</code></li>
   <li><code>dataNascParte</code></li>
-  <li><code>bairroVia</code></li>
-  <li><code>cepVia</code></li>
-  <li><code>cidadeVia</code></li>
-  <li><code>complementoVia</code></li>
-  <li><code>enderecoCompleto</code></li>
-  <li><code>estadoVia</code></li>
-  <li><code>nomeVia</code></li>
-  <li><code>numeroVia</code></li>
-  <li><code>tipoVia</code></li>
   <li><code>estadoCivilParte</code></li>
   <li><code>nacionalidadeParte</code></li>
-  <li><code>nomeParte</code></li>
   <li><code>profissaoParte</code></li>
-  <li><code>prazoMandatoAta</code></li>
+  <li><code>enderecoTipoVia</code></li>
+  <li><code>enderecoNomeVia</code></li>
+  <li><code>enderecoNumeroVia</code></li>
+  <li><code>enderecoComplementoVia</code></li>
+  <li><code>enderecoCidadeVia</code></li>
+  <li><code>enderecoEstadoVia</code></li>
+  <li><code>enderecoBairroVia</code></li>
+  <li><code>enderecoCepVia</code></li>
+  <li><code>enderecoCompleto</code></li>
+  <li><code>dataEmissaoAta</code></li>
+  <li><code>ordemDiaAta</code></li>
   <li><code>tipoAssinaturaContrato</code></li>
+  <li><code>formaRepresentacaoContrato</code></li>
+  <li><code>prazoMandatoAta</code></li>
+  <li><code>dataFinalMandato</code></li>
+  <li><code>ataRegistrada</code></li>
+
 </ul>
 `;
 
@@ -311,6 +317,360 @@ export const BEST_PRACTICES_CONTENT = `
 </ul>
 `;
 
+// CONTENT FOR "Response por Documento" STARTS HERE
+
+export const RESPONSE_CERTIDAO_CASAMENTO_MAIN = `
+<h2>Certidão de Casamento</h2>
+<p>Campos retornados para Certidão de Casamento:</p>
+<ul>
+  <li><strong>dataEmissaoCertidao</strong>: Data em formato DD/MM/YYYY da emissão do documento.</li>
+  <li><strong>partes</strong>: Array de objetos contendo informações dos cônjuges. Cada objeto pode conter:
+    <ul>
+      <li><strong>cpfParte</strong>: String (CPF do cônjuge).</li>
+      <li><strong>dataNascParte</strong>: String (Data de nascimento do cônjuge no formato DD/MM/YYYY).</li>
+      <li><strong>nacionalidadeParte</strong>: String (Nacionalidade do cônjuge).</li>
+      <li><strong>nomeParte</strong>: String (Nome completo do cônjuge).</li>
+    </ul>
+  </li>
+  <li><strong>regimeBens</strong>: String indicando o regime de bens do casamento, podendo ser Comunhão Parcial, Comunhão Universal, Separação Total e Participação Final nos Aquestos.</li>
+</ul>
+`;
+export const RESPONSE_CERTIDAO_CASAMENTO_CODE = `
+<div style="margin-right: 30px;">
+<p>Exemplo de resposta:</p>
+<pre><code class="language-json">
+{
+  "dataEmissaoCertidao": "01/01/2023",
+  "partes": [
+    {
+      "cpfParte": "12345678900",
+      "dataNascParte": "15/03/1990",
+      "nacionalidadeParte": "brasileira", 
+      "nomeParte": "MARIA SILVA"
+    },
+    {
+      "cpfParte": "98765432100",
+      "dataNascParte": "20/06/1988",
+      "nacionalidadeParte": "brasileira",
+      "nomeParte": "JOÃO SANTOS"
+    }
+  ],
+  "regimeBens": "Comunhão Parcial de Bens"
+}
+</code></pre>
+</div>
+`;
+
+export const RESPONSE_CNH_MAIN = `
+<h2>CNH (Carteira Nacional de Habilitação)</h2>
+<p>Campos retornados para CNH:</p>
+<ul>
+  <li><strong>informacoesCarteira</strong>: Objeto contendo dados da CNH.
+    <ul>
+      <li><strong>categoriaHabilitacao</strong>: String (Ex: "B", "AB").</li>
+      <li><strong>cidadeEmissaoCnh</strong>: String (Cidade de emissão da CNH).</li>
+      <li><strong>data1aHabilitacao</strong>: String (Data da primeira habilitação no formato DD/MM/YYYY).</li>
+      <li><strong>dataEmissaoCnh</strong>: String (Data de emissão da CNH no formato DD/MM/YYYY).</li>
+      <li><strong>dataValidadeCnh</strong>: String (Data de validade da CNH no formato DD/MM/YYYY).</li>
+      <li><strong>estadoEmissaoCnh</strong>: String (UF de emissão da CNH).</li>
+      <li><strong>numeroRegistroCnh</strong>: String (Número de registro da CNH).</li>
+    </ul>
+  </li>
+  <li><strong>informacoesPessoais</strong>: Objeto com dados do condutor.
+    <ul>
+      <li><strong>dataNascimento</strong>: String (Data de nascimento no formato DD/MM/YYYY).</li>
+      <li><strong>estadoDocumentoIdentidadeEmitido</strong>: String (UF de emissão do documento de identidade).</li>
+      <li><strong>estadoNascimento</strong>: String (UF de nascimento).</li>
+      <li><strong>filiacaoMae</strong>: String (Nome da mãe).</li>
+      <li><strong>filiacaoPai</strong>: String (Nome do pai).</li>
+      <li><strong>nacionalidade</strong>: String (Nacionalidade).</li>
+      <li><strong>nomeCompleto</strong>: String (Nome completo).</li>
+      <li><strong>numeroCpf</strong>: String (CPF).</li>
+      <li><strong>numeroDocumentoIdentidade</strong>: String (Número do documento de identidade).</li>
+      <li><strong>orgaoEmissorDocumentoIdentidade</strong>: String (Órgão emissor do documento de identidade).</li>
+    </ul>
+  </li>
+</ul>
+`;
+export const RESPONSE_CNH_CODE = `
+<div style="margin-right: 30px;">
+<p>Exemplo de resposta:</p>
+<pre><code class="language-json">
+{
+  "informacoesCarteira": {
+    "categoriaHabilitacao": "B",
+    "cidadeEmissaoCnh": "SAO PAULO",
+    "data1aHabilitacao": "10/01/2015",
+    "dataEmissaoCnh": "10/01/2020",
+    "dataValidadeCnh": "10/01/2030",
+    "estadoEmissaoCnh": "SP",
+    "numeroRegistroCnh": "12345678901"
+  },
+  "informacoesPessoais": {
+    "dataNascimento": "15/05/1990",
+    "estadoDocumentoIdentidadeEmitido": "SP",
+    "estadoNascimento": "SP",
+    "filiacaoMae": "MARIA DA SILVA",
+    "filiacaoPai": "JOSE DA SILVA",
+    "nacionalidade": "BRASILEIRO",
+    "nomeCompleto": "PEDRO DA SILVA",
+    "numeroCpf": "12345678900",
+    "numeroDocumentoIdentidade": "123456789",
+    "orgaoEmissorDocumentoIdentidade": "SSP"
+  }
+}
+</code></pre>
+</div>
+`;
+
+export const RESPONSE_RG_MAIN = `
+<h2>RG (Registro Geral)</h2>
+<p>Campos retornados para RG:</p>
+<ul>
+  <li><strong>informacoesPessoais</strong>: Objeto com dados pessoais.
+    <ul>
+      <li><strong>dataNascimento</strong>: String (Data de nascimento no formato DD/MM/YYYY).</li>
+      <li><strong>estadoNascimento</strong>: String (UF de nascimento).</li>
+      <li><strong>filiacaoMae</strong>: String (Nome da mãe).</li>
+      <li><strong>filiacaoPai</strong>: String (Nome do pai).</li>
+      <li><strong>nacionalidade</strong>: String (Nacionalidade, pode incluir cidade e UF).</li>
+      <li><strong>nomeCompleto</strong>: String (Nome completo).</li>
+      <li><strong>numeroCpf</strong>: String (CPF, se presente no RG).</li>
+    </ul>
+  </li>
+  <li><strong>informacoesRg</strong>: Objeto com dados específicos do RG.
+    <ul>
+      <li><strong>cidadeEmissaoRg</strong>: String (Cidade de emissão do RG).</li>
+      <li><strong>dataEmissaoRg</strong>: String (Data de emissão do RG no formato DD/MM/YYYY).</li>
+      <li><strong>dataValidadeRg</strong>: String (Data de validade do RG no formato DD/MM/YYYY, se aplicável).</li>
+      <li><strong>estadoEmissaoRg</strong>: String (UF de emissão do RG).</li>
+      <li><strong>numeroRegistroRg</strong>: String (Número de registro do RG, pode ser o mesmo que numeroRg).</li>
+      <li><strong>numeroRg</strong>: String (Número do RG).</li>
+      <li><strong>orgaoEmissorRg</strong>: String (Órgão emissor do RG).</li>
+    </ul>
+  </li>
+</ul>
+`;
+export const RESPONSE_RG_CODE = `
+<div style="margin-right: 30px;">
+<p>Exemplo de resposta:</p>
+<pre><code class="language-json">
+{
+  "informacoesPessoais": {
+    "dataNascimento": "20/03/1995",
+    "estadoNascimento": "RJ",
+    "filiacaoMae": "ANA OLIVEIRA",
+    "filiacaoPai": "CARLOS OLIVEIRA",
+    "nacionalidade": "RIO DE JANEIRO - RJ",
+    "nomeCompleto": "AMANDA OLIVEIRA",
+    "numeroCpf": "98765432100"
+  },
+  "informacoesRg": {
+    "cidadeEmissaoRg": "RIO DE JANEIRO",
+    "dataEmissaoRg": "15/06/2015",
+    "dataValidadeRg": "15/06/2025",
+    "estadoEmissaoRg": "RJ",
+    "numeroRegistroRg": "87654321",
+    "numeroRg": "87.654.321-0",
+    "orgaoEmissorRg": "DETRAN"
+  }
+}
+</code></pre>
+</div>
+`;
+
+export const RESPONSE_CONTRATO_SOCIAL_MAIN = `
+<h2>Contrato Social</h2>
+<p>Campos retornados para Contrato Social:</p>
+<ul>
+  <li><strong>partes</strong>: Array de objetos com informações dos sócios. Cada objeto pode conter:
+    <ul>
+      <li><strong>nomeParte</strong>: String (Nome completo do sócio).</li>
+      <li><strong>cpfParte</strong>: String (CPF do sócio).</li>
+      <li><strong>dataNascParte</strong>: String (Data de nascimento do sócio no formato DD/MM/YYYY).</li>
+      <li><strong>nacionalidadeParte</strong>: String (Nacionalidade do sócio).</li>
+      <li><strong>estadoCivilParte</strong>: String (Estado civil do sócio).</li>
+      <li><strong>profissaoParte</strong>: String (Profissão do sócio).</li>
+      <li><strong>enderecoTipoVia</strong>: String (Tipo da via, ex: "RUA", "AVENIDA").</li>
+      <li><strong>enderecoNomeVia</strong>: String (Nome da via/rua).</li>
+      <li><strong>enderecoNumeroVia</strong>: String (Número).</li>
+      <li><strong>enderecoComplementoVia</strong>: String (Complemento).</li>
+      <li><strong>enderecoBairroVia</strong>: String (Nome do bairro).</li>
+      <li><strong>enderecoCidadeVia</strong>: String (Cidade).</li>
+      <li><strong>enderecoEstadoVia</strong>: String (UF).</li>
+      <li><strong>enderecoCepVia</strong>: String (CEP).</li>
+      <li><strong>enderecoCompleto</strong>: String (Endereço completo).</li>
+    </ul>
+  </li>
+  <li><strong>atividadesEmpresa</strong>: Array de strings com as atividades da empresa.</li>
+  <li><strong>contratoConsolidado</strong>: Boolean (Indica se o contrato é consolidado).</li>
+  <li><strong>contratoRegistrado</strong>: Boolean (Indica se o contrato está registrado).</li>
+  <li><strong>tipoAssinaturaContrato</strong>: String (Tipo de assinatura, ex: "conjunta", "isolada").</li>
+  <li><strong>formaRepresentacaoContrato</strong>: Array de strings descrevendo a forma de representação.</li>
+  <li><strong>prazoMandatoContrato</strong>: String (Prazo do mandato, ex: "determinado", "indeterminado").</li>
+  <li><strong>dataLimiteMandadoContrato</strong>: String (Data limite do mandato no formato DD/MM/YYYY).</li>
+  <li><strong>vedacoesContrato</strong>: Array de strings com as vedações contratuais.</li>
+</ul>
+`;
+export const RESPONSE_CONTRATO_SOCIAL_CODE = `
+<div style="margin-right: 30px;">
+<p>Exemplo de resposta:</p>
+<pre><code class="language-json">
+{
+  "atividadesEmpresa": [
+    "DESENVOLVIMENTO DE SOFTWARE",
+    "CONSULTORIA EM TECNOLOGIA"
+  ],
+  "contratoConsolidado": true,
+  "contratoRegistrado": true,
+  "dataLimiteMandadoContrato": "01/01/2030",
+  "formaRepresentacaoContrato": [
+    "A administração será exercida em conjunto"
+  ],
+  "partes": [
+    {
+      "cpfParte": "12345678900",
+      "dataNascParte": "15/08/1980",
+      "enderecoCepVia": "12345678",
+      "enderecoCidadeVia": "SAO PAULO",
+      "enderecoCompleto": "AV PAULISTA, 1000, SALA 123, SAO PAULO, SP",
+      "enderecoEstadoVia": "SP",
+      "enderecoNomeVia": "PAULISTA",
+      "enderecoNumeroVia": "1000",
+      "enderecoTipoVia": "AVENIDA"
+      "estadoCivilParte": "CASADO",
+      "nacionalidadeParte": "BRASILEIRA",
+      "nomeParte": "CARLOS SILVA",
+      "profissaoParte": "DIRETOR DE TECNOLOGIA"
+    }
+  ],
+  "prazoMandatoContrato": "determinado",
+  "tipoAssinaturaContrato": "conjunta",
+  "vedacoesContrato": [
+    "Alienação de bens imóveis sem concordância dos sócios"
+  ]
+}
+</code></pre>
+</div>
+`;
+
+export const RESPONSE_ATA_ELEICAO_DIRETORIA_MAIN = `
+<h2>Ata de Eleição da Diretoria</h2>
+<p>Campos retornados para Ata de Eleição da Diretoria:</p>
+<ul>
+  <li><strong>partes</strong>: Array de objetos com informações dos membros eleitos (formato similar ao <code>partes</code> do Contrato Social). Cada objeto pode conter:
+    <ul>
+      <li><strong>nomeParte</strong>: String (Nome completo do sócio).</li>
+      <li><strong>cpfParte</strong>: String (CPF do sócio).</li>
+      <li><strong>dataNascParte</strong>: String (Data de nascimento do sócio no formato DD/MM/YYYY).</li>
+      <li><strong>nacionalidadeParte</strong>: String (Nacionalidade do sócio).</li>
+      <li><strong>estadoCivilParte</strong>: String (Estado civil do sócio).</li>
+      <li><strong>profissaoParte</strong>: String (Profissão do sócio).</li>
+      <li><strong>enderecoTipoVia</strong>: String (Tipo da via, ex: "RUA", "AVENIDA").</li>
+      <li><strong>enderecoNomeVia</strong>: String (Nome da via/rua).</li>
+      <li><strong>enderecoNumeroVia</strong>: String (Número).</li>
+      <li><strong>enderecoComplementoVia</strong>: String (Complemento).</li>
+      <li><strong>enderecoBairroVia</strong>: String (Nome do bairro).</li>
+      <li><strong>enderecoCidadeVia</strong>: String (Cidade).</li>
+      <li><strong>enderecoEstadoVia</strong>: String (UF).</li>
+      <li><strong>enderecoCepVia</strong>: String (CEP).</li>
+      <li><strong>enderecoCompleto</strong>: String (Endereço completo).</li>
+    </ul>
+  </li>
+  <li><strong>ataRegistrada</strong>: Boolean (Indica se a ata está registrada).</li>
+  <li><strong>dataEmissaoAta</strong>: String (Data de emissão da ata no formato DD/MM/YYYY).</li>
+  <li><strong>ordemDiaAta</strong>: Array de strings com as pautas da reunião/ata.</li>
+  <li><strong>prazoMandatoAta</strong>: String (Prazo do mandato definido na ata).</li>
+  <li><strong>dataFinalMandato</strong>: String (Data final do mandato no formato DD/MM/YYYY).</li>
+  <li><strong>tipoAssinaturaContrato</strong>: String (Tipo de assinatura, ex: "isolada", "conjunta").</li>
+  <li><strong>formaRepresentacaoContrato</strong>: Array de strings descrevendo a forma de representação contratual.</li>
+</ul>
+`;
+export const RESPONSE_ATA_ELEICAO_DIRETORIA_CODE = `
+<div style="margin-right: 30px;">
+<p>Exemplo de resposta:</p>
+<pre><code class="language-json">
+{
+  "ataRegistrada": true,
+  "dataEmissaoAta": "01/03/2023",
+  "dataFinalMandato": "01/03/2025",
+  "formaRepresentacaoContrato": [
+    "Desenvolvimento de Software",
+    "Consultoria em TI"
+  ],
+  "ordemDiaAta": [
+    "Eleição da nova diretoria",
+    "Definição de metas anuais"
+  ],
+  "partes": [
+    {
+      "cpfParte": "12345678900",
+      "dataNascParte": "15/08/1980",
+      "enderecoCepVia": "12345678",
+      "enderecoCidadeVia": "SAO PAULO",
+      "enderecoCompleto": "AV PAULISTA, 1000, SALA 123, SAO PAULO, SP",
+      "enderecoEstadoVia": "SP",
+      "enderecoNomeVia": "PAULISTA",
+      "enderecoNumeroVia": "1000",
+      "enderecoTipoVia": "AVENIDA"
+      "estadoCivilParte": "CASADO",
+      "nacionalidadeParte": "BRASILEIRA",
+      "nomeParte": "CARLOS SILVA",
+      "profissaoParte": "DIRETOR DE TECNOLOGIA"
+    }
+  ],
+  "prazoMandatoAta": "determinado",
+  "tipoAssinaturaContrato": "isolada"
+}
+</code></pre>
+</div>
+`;
+
+export const RESPONSE_COMPROVANTE_RESIDENCIA_MAIN = `
+<h2>Comprovante de Residência</h2>
+<p>Campos retornados para Comprovante de Residência:</p>
+<ul>
+  <li><strong>dataEmissao</strong>: String (Data de emissão do comprovante no formato DD/MM/YYYY).</li>
+  <li><strong>endereco</strong>: Objeto contendo detalhes do endereço.
+    <ul>
+      <li><strong>cepVia</strong>: String (CEP).</li>
+      <li><strong>cidadeVia</strong>: String (Cidade).</li>
+      <li><strong>complementoVia</strong>: String (Complemento do endereço).</li>
+      <li><strong>enderecoCompleto</strong>: String (Endereço completo formatado).</li>
+      <li><strong>estadoVia</strong>: String (UF).</li>
+      <li><strong>nomeVia</strong>: String (Nome da via/rua).</li>
+      <li><strong>numeroVia</strong>: String (Número).</li>
+      <li><strong>tipoVia</strong>: String (Tipo da via, ex: "RUA", "AVENIDA").</li>
+    </ul>
+  </li>
+  <li><strong>nomeCompleto</strong>: String (Nome completo da pessoa a quem o comprovante se refere).</li>
+</ul>
+`;
+export const RESPONSE_COMPROVANTE_RESIDENCIA_CODE = `
+<div style="margin-right: 30px;">
+<p>Exemplo de resposta:</p>
+<pre><code class="language-json">
+{
+  "dataEmissao": "01/05/2023",
+  "endereco": {
+    "cepVia": "04578000",
+    "cidadeVia": "SAO PAULO",
+    "complementoVia": "APTO 123",
+    "enderecoCompleto": "RUA DAS FLORES, 456, APTO 123, SAO PAULO, SP",
+    "estadoVia": "SP",
+    "nomeVia": "DAS FLORES",
+    "numeroVia": "456",
+    "tipoVia": "RUA"
+  },
+  "nomeCompleto": "ANA MARIA SANTOS"
+}
+</code></pre>
+</div>
+`;
+
+// CONTENT FOR "Response por Documento" ENDS HERE
+
+
 // This used to combine all content for AI, but now getAllDocsContentForAI in documentation.tsx handles it dynamically.
 // We keep this structure in case individual pieces are still needed elsewhere, though likely they aren't.
 export const DOCUMENTATION_SECTIONS = `
@@ -336,4 +696,18 @@ ${QUICKSTART_MAIN}
 ${QUICKSTART_CODE}
 ${ERROR_CODES_CONTENT}
 ${BEST_PRACTICES_CONTENT}
+${RESPONSE_CERTIDAO_CASAMENTO_MAIN}
+${RESPONSE_CERTIDAO_CASAMENTO_CODE}
+${RESPONSE_CNH_MAIN}
+${RESPONSE_CNH_CODE}
+${RESPONSE_RG_MAIN}
+${RESPONSE_RG_CODE}
+${RESPONSE_CONTRATO_SOCIAL_MAIN}
+${RESPONSE_CONTRATO_SOCIAL_CODE}
+${RESPONSE_ATA_ELEICAO_DIRETORIA_MAIN}
+${RESPONSE_ATA_ELEICAO_DIRETORIA_CODE}
+${RESPONSE_COMPROVANTE_RESIDENCIA_MAIN}
+${RESPONSE_COMPROVANTE_RESIDENCIA_CODE}
 `;
+
+

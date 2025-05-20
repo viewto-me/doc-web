@@ -14,12 +14,14 @@ export const metadata: Metadata = {
   description: 'API Documentation for viewto.me',
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
+
     <html lang="en" className="dark">
       <body className={`${outfit.variable} font-sans antialiased min-h-screen flex flex-col`}>
         {children}

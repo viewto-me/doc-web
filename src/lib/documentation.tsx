@@ -1,4 +1,5 @@
 
+
 import type { ReactNode } from 'react';
 import * as Content from './docs-content';
 
@@ -85,7 +86,7 @@ export const documentationTree: DocPage[] = [
         path: '/docs/api-structure/documents-object',
         categoryTitle: 'Campos da Requisição',
         mainContent: Content.DOCUMENTS_OBJECT_MAIN,
-        codeContent: Content.DOCUMENTS_OBJECT_CODE, // Placeholder if needed for a general example
+        codeContent: Content.DOCUMENTS_OBJECT_CODE, 
         keywords: ['documents', 'documentos', 'objeto', 'name', 'options', 'opcoes', 'rg', 'cnh', 'comprovanteresidencia', 'contratosocial', 'ataeleicaodiretoria'],
         children: [
             {
@@ -161,6 +162,70 @@ export const documentationTree: DocPage[] = [
     ],
   },
   {
+    id: 'response-por-documento',
+    title: 'Response por Documento',
+    path: '/docs/response-por-documento',
+    categoryTitle: 'Referência da API',
+    mainContent: '<h1>Respostas por Tipo de Documento</h1><p>Esta seção detalha os campos retornados pela API para cada tipo de documento suportado, incluindo exemplos de JSON para cada um.</p>',
+    keywords: ['response', 'resposta', 'documentos', 'json', 'formato', 'campos', 'retorno', 'dados'],
+    children: [
+      {
+        id: 'response-certidao-casamento',
+        title: 'Certidão de Casamento',
+        path: '/docs/response-por-documento/certidao-casamento',
+        categoryTitle: 'Formatos de Resposta',
+        mainContent: Content.RESPONSE_CERTIDAO_CASAMENTO_MAIN,
+        codeContent: Content.RESPONSE_CERTIDAO_CASAMENTO_CODE,
+        keywords: ['certidao casamento', 'casamento', 'response', 'resposta', 'json', 'campos', 'partes', 'regimeBens'],
+      },
+      {
+        id: 'response-cnh',
+        title: 'CNH',
+        path: '/docs/response-por-documento/cnh',
+        categoryTitle: 'Formatos de Resposta',
+        mainContent: Content.RESPONSE_CNH_MAIN,
+        codeContent: Content.RESPONSE_CNH_CODE,
+        keywords: ['cnh', 'carteira de habilitacao', 'response', 'resposta', 'json', 'campos', 'informacoesCarteira', 'informacoesPessoais'],
+      },
+      {
+        id: 'response-rg',
+        title: 'RG',
+        path: '/docs/response-por-documento/rg',
+        categoryTitle: 'Formatos de Resposta',
+        mainContent: Content.RESPONSE_RG_MAIN,
+        codeContent: Content.RESPONSE_RG_CODE,
+        keywords: ['rg', 'registro geral', 'identidade', 'response', 'resposta', 'json', 'campos', 'informacoesPessoais', 'informacoesRg'],
+      },
+      {
+        id: 'response-contrato-social',
+        title: 'Contrato Social',
+        path: '/docs/response-por-documento/contrato-social',
+        categoryTitle: 'Formatos de Resposta',
+        mainContent: Content.RESPONSE_CONTRATO_SOCIAL_MAIN,
+        codeContent: Content.RESPONSE_CONTRATO_SOCIAL_CODE,
+        keywords: ['contrato social', 'empresa', 'response', 'resposta', 'json', 'campos', 'partes', 'atividadesEmpresa'],
+      },
+      {
+        id: 'response-ata-eleicao',
+        title: 'Ata de Eleição da Diretoria',
+        path: '/docs/response-por-documento/ata-eleicao',
+        categoryTitle: 'Formatos de Resposta',
+        mainContent: Content.RESPONSE_ATA_ELEICAO_DIRETORIA_MAIN,
+        codeContent: Content.RESPONSE_ATA_ELEICAO_DIRETORIA_CODE,
+        keywords: ['ata de eleicao', 'diretoria', 'response', 'resposta', 'json', 'campos', 'partes', 'ordemDiaAta'],
+      },
+      {
+        id: 'response-comprovante-residencia',
+        title: 'Comprovante de Residência',
+        path: '/docs/response-por-documento/comprovante-residencia',
+        categoryTitle: 'Formatos de Resposta',
+        mainContent: Content.RESPONSE_COMPROVANTE_RESIDENCIA_MAIN,
+        codeContent: Content.RESPONSE_COMPROVANTE_RESIDENCIA_CODE,
+        keywords: ['comprovante de residencia', 'endereco', 'response', 'resposta', 'json', 'campos', 'nomeCompleto'],
+      },
+    ],
+  },
+  {
     id: 'quickstart',
     title: 'Guia de Início Rápido',
     path: '/docs/quickstart',
@@ -220,24 +285,47 @@ export function getAllDocsContentForAI(): string {
     let combinedText = "";
     function traverseAndCollect(pages: DocPage[]) {
       for (const page of pages) {
+        // For mainContent and codeContent, if it's a function, we can't directly get the string here easily.
+        // We rely on the string versions being available in docs-content.ts and picked up by DOCUMENTATION_SECTIONS.
+        // This function is now primarily a fallback or if direct string concatenation from the tree is preferred for some reason.
+        // The primary source for AI context is the `DOCUMENTATION_SECTIONS` string in `docs-content.ts`.
+        // However, to be robust, let's try to get content from string properties first.
+        
+        let mainStr = '';
         if (typeof page.mainContent === 'string') {
-          combinedText += `${page.mainContent}
-
-`;
+          mainStr = page.mainContent;
+        } else {
+          // Attempt to find corresponding string in Content if mainContent is a function. This is a heuristic.
+          // A more robust way would be to ensure all content for AI comes from explicitly defined strings.
+          const keyGuess = Object.keys(Content).find(k => Content[k as keyof typeof Content] === page.mainContent && typeof Content[k as keyof typeof Content] === 'string');
+          if (keyGuess) mainStr = Content[keyGuess as keyof typeof Content] as string;
         }
+        combinedText += `${mainStr}\n\n`;
+
+        let codeStr = '';
         if (typeof page.codeContent === 'string') {
-          combinedText += `${page.codeContent}
-
-`;
+          codeStr = page.codeContent;
+        } else if (page.codeContent) { // if it's a function
+            const keyGuess = Object.keys(Content).find(k => Content[k as keyof typeof Content] === page.codeContent && typeof Content[k as keyof typeof Content] === 'string');
+            if (keyGuess) codeStr = Content[keyGuess as keyof typeof Content] as string;
         }
+        combinedText += `${codeStr}\n\n`;
+        
         if (page.children) {
           traverseAndCollect(page.children);
         }
       }
     }
-    traverseAndCollect(documentationTree);
     
-    _allDocsText = combinedText
+    // Prefer the explicitly concatenated string if available and comprehensive
+    if (Content.DOCUMENTATION_SECTIONS && Content.DOCUMENTATION_SECTIONS.length > 200) { // Basic check for non-empty
+        _allDocsText = Content.DOCUMENTATION_SECTIONS;
+    } else {
+        traverseAndCollect(documentationTree);
+        _allDocsText = combinedText;
+    }
+    
+    _allDocsText = _allDocsText
       .replace(/<[^>]+>/g, ' ') // Strip HTML tags
       .replace(/\s+/g, ' ')    // Replace all occurrences of one or more whitespace characters with a single space
       .trim();                 // Remove leading/trailing whitespace
@@ -249,3 +337,6 @@ export function getAllDocsContentForAI(): string {
   }
   return _allDocsText;
 }
+
+
+    
