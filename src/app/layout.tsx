@@ -12,6 +12,9 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: 'viewto.me API Docs',
   description: 'API Documentation for viewto.me',
+  icons: {
+    icon: 'https://storage.googleapis.com/publics-svg/favicon32px.svg',
+  },
 };
 
 
