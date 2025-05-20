@@ -10,7 +10,7 @@
     --card: 0 0% 16%; /* #2A2A2A */
     --card-foreground: 0 0% 88%; /* #E0E0E0 */
 
-    --popover: 0 0% 16%; /* #2A2A2A */
+    --popover: 0 0% 88% / 0.9; /* Your requested color */
     --popover-foreground: 0 0% 88%; /* #E0E0E0 */
 
     --primary: 170 80% 46%; /* #15D4B7 (Turquesa) */
@@ -20,7 +20,7 @@
     --secondary: 0 0% 14%; /* #242424 */
     --secondary-foreground: 0 0% 88%; /* #E0E0E0 */
 
-    --muted: 0 0% 14%; /* #242424 */
+    --muted: 0 0% 88% / 0.9; /* Your requested color */
     --muted-foreground: 0 0% 67%; /* #AAAAAA */
 
     --accent: 170 80% 46%; /* #15D4B7 (Turquesa - for interactive elements) */
@@ -64,13 +64,13 @@
     --foreground: 0 0% 88%;
     --card: 0 0% 16%;
     --card-foreground: 0 0% 88%;
-    --popover: 0 0% 16%;
+    --popover: 0 0% 88% / 0.9; /* Your requested color */
     --popover-foreground: 0 0% 88%;
     --primary: 170 80% 46%;
     --primary-foreground: 0 0% 12%;
     --primary-hover: 172 76% 57%;
     --secondary: 0 0% 14%;
-    --secondary-foreground: 0 0% 88%;
+    --secondary-foreground: 0 0% 88%; /* #E0E0E0 */
     --muted: 0 0% 14%;
     --muted-foreground: 0 0% 67%;
     --accent: 170 80% 46%;

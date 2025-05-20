@@ -153,7 +153,7 @@ export function SearchDialog() {
         <Search className="mr-2 h-4 w-4" />
         <span className="hidden lg:inline-flex">Pesquisar documentação...</span>
         <span className="inline-flex lg:hidden">Pesquisar...</span>
-        <kbd className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 text-[10px] font-bold opacity-100 sm:flex">
+        <kbd className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 text-[10px] font-bold opacity-100 sm:flex text-muted-foreground">
           Ctrl K
         </kbd>
       </Button>
