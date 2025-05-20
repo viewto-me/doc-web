@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 12%; /* #1E1E1E */
+    --foreground: 0 0% 88%; /* #E0E0E0 */
+
+    --card: 0 0% 16%; /* #2A2A2A */
+    --card-foreground: 0 0% 88%; /* #E0E0E0 */
+
+    --popover: 0 0% 88% / 0.9; /* Your requested color */
+    --popover-foreground: 0 0% 88%; /* #E0E0E0 */
+
+    --primary: 170 80% 46%; /* #15D4B7 (Turquesa) */
+    --primary-foreground: 0 0% 12%; /* Dark text on primary #1E1E1E */
+    --primary-hover: 172 76% 57%; /* #3FE5CF (Hover de highlight) */
+
+    --secondary: 0 0% 14%; /* #242424 */
+    --secondary-foreground: 0 0% 88%; /* #E0E0E0 */
+
+    --muted: 0 0% 88% / 0.9; /* Your requested color */
+    --muted-foreground: 0 0% 67%; /* #AAAAAA */
+
+    --accent: 170 80% 46%; /* #15D4B7 (Turquesa - for interactive elements) */
+    --accent-foreground: 0 0% 12%; /* Dark text on accent #1E1E1E */
+    --accent-hover: 172 76% 57%; /* #3FE5CF (Hover for accent) */
+
+    --destructive: 0 100% 69%; /* #FF5F5F (Erro) */
+    --destructive-foreground: 0 0% 12%; /* Dark text on destructive #1E1E1E */
+    
+    --success: 160 63% 53%; /* #3AD29F (Sucesso) */
+    --success-foreground: 0 0% 12%; /* Dark text on success #1E1E1E */
+
+    --border: 0 0% 16%; /* #2A2A2A (Using card color for borders) */
+    --input: 0 0% 16%; /* #2A2A2A */
+    --ring: 170 80% 46%; /* #15D4B7 (Turquesa for focus rings) */
+
+    --radius: 0.5rem;
+
+    /* Custom variables for Outfit font */
+    --font-outfit: "Outfit", sans-serif;
+
+    /* Sidebar specific theme variables */
+    --sidebar-background: 0 0% 12%; /* Same as main background for closer match to prompt*/
+    --sidebar-foreground: 0 0% 88%; /* Main text color */
+    --sidebar-primary: 170 80% 46%; /* Turquesa */
+    --sidebar-primary-foreground: 0 0% 12%; /* Dark text on primary */
+    --sidebar-accent: 0 0% 20%; /* Slightly lighter gray for hover background e.g. #333333 */
+    --sidebar-accent-foreground: 170 80% 46%; /* Turquesa for active/hovered text */
+    --sidebar-border: 0 0% 14%; /* Slightly darker than sidebar-background for subtle division */
+    --sidebar-ring: 170 80% 46%; /* Turquesa for focus rings */
+
+    --chart-1: 160 63% 53%; /* Sucesso Verde sutil #3AD29F */
+    --chart-2: 170 80% 46%; /* Turquesa #15D4B7 */
+    --chart-3: 180 100% 50%; /* Cyan (Kept from previous for variety, can be adjusted) */
+    --chart-4: 170 60% 60%; /* Lighter Turquesa */
+    --chart-5: 160 75% 50%; /* Brighter Sucesso Green */
+  }
+
+  .dark {
+    --background: 0 0% 12%;
+    --foreground: 0 0% 88%;
+    --card: 0 0% 16%;
+    --card-foreground: 0 0% 88%;
+    --popover: 0 0% 88% / 0.9; /* Your requested color */
+    --popover-foreground: 0 0% 88%;
+    --primary: 170 80% 46%;
+    --primary-foreground: 0 0% 12%;
+    --primary-hover: 172 76% 57%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 88%; /* #E0E0E0 */
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 67%;
+    --accent: 170 80% 46%;
+    --accent-foreground: 0 0% 12%;
+    --accent-hover: 172 76% 57%;
+    --destructive: 0 100% 69%;
+    --destructive-foreground: 0 0% 12%;
+    --success: 160 63% 53%;
+    --success-foreground: 0 0% 12%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 170 80% 46%;
+    
+    --chart-1: 160 63% 53%;
+    --chart-2: 170 80% 46%;
+    --chart-3: 180 100% 50%;
+    --chart-4: 170 60% 60%;
+    --chart-5: 160 75% 50%;
+
+    --sidebar-background: 0 0% 12%;
+    --sidebar-foreground: 0 0% 88%;
+    --sidebar-primary: 170 80% 46%;
+    --sidebar-primary-foreground: 0 0% 12%;
+    --sidebar-accent: 0 0% 20%; /* Hover background for sidebar items */
+    --sidebar-accent-foreground: 170 80% 46%; /* Hover text for sidebar items - Turquesa */
+    --sidebar-border: 0 0% 14%;
+    --sidebar-ring: 170 80% 46%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans; /* Ensure font-sans uses Outfit */
+    font-family: var(--font-outfit);
+    
+    /* Apply custom scrollbar styles globally */
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: hsl(var(--accent)) hsl(var(--muted) / 0.5); /* For Firefox */
+  }
+
+  body::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: hsl(var(--muted) / 0.5);
+    border-radius: 10px;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background: hsl(var(--accent));
+    border-radius: 10px;
+  }
+
+  /* Apply prose styles to content rendered via dangerouslySetInnerHTML */
+  .prose {
+    h1 {
+      /* Main page title style handled in page.tsx for more control */
+      /* This h1 is for subsequent h1s within content if any */
+      @apply text-3xl font-semibold text-primary mt-8 mb-4;
+    }
+    h2 {
+      @apply text-2xl font-semibold text-primary mt-6 mb-3 border-b border-border/50 pb-2;
+    }
+    h3 {
+      @apply text-xl font-semibold text-primary mt-5 mb-2;
+    }
+    h4 {
+      @apply text-lg font-semibold text-primary mt-4 mb-2;
+    }
+    p, ul, ol, blockquote {
+      @apply mb-4 leading-relaxed text-foreground/90;
+    }
+    ul, ol {
+      @apply ml-6;
+    }
+    li {
+      @apply mb-2;
+    }
+    ul {
+      @apply list-disc;
+    }
+    ol {
+      @apply list-decimal;
+    }
+    strong {
+      @apply font-semibold text-[hsl(var(--accent))]; /* Use HSL for accent */
+    }
+    a {
+      @apply text-[hsl(var(--primary))] hover:text-[hsl(var(--primary-hover))] hover:underline; /* Use HSL for primary and primary-hover */
+    }
+    code {
+      @apply bg-muted/50 text-[hsl(var(--accent))] px-1.5 py-0.5 rounded-md text-sm font-mono; /* Use HSL for accent */
+    }
+    pre code {
+      @apply bg-transparent p-0 rounded-none; /* Reset for code inside pre */
+    }
+    blockquote {
+      @apply border-l-4 border-border pl-4 italic text-muted-foreground;
+    }
+    hr {
+      @apply my-8 border-border/50;
+    }
+  }
+}
+
+
+/* Code block styling */
+pre {
+  @apply bg-card p-4 rounded-md overflow-x-auto text-sm my-6 shadow-md; /* Darker bg like image */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: hsl(var(--accent)) hsl(var(--muted)); /* For Firefox */
+}
+
+pre::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+  @apply bg-muted/50;
+  border-radius: 10px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  @apply bg-[hsl(var(--accent))]; /* Use HSL for accent */
+  border-radius: 10px;
+}
+
+/* Table styling to match the image */
+.table-container {
+  @apply my-6 overflow-x-auto rounded-lg border border-border bg-card shadow-md;
+}
+table {
+  @apply w-full text-left text-sm;
+}
+table thead {
+  @apply bg-muted/30;
+}
+table th {
+  @apply p-3 font-semibold text-foreground/90 tracking-wide;
+}
+table td {
+  @apply p-3 border-t border-border text-foreground/80;
+}
+table tbody tr:hover {
+  @apply bg-muted/20;
+}
+table td code { /* Consistent code styling within tables */
+  @apply bg-muted/50 text-[hsl(var(--accent))] px-1.5 py-0.5 rounded-md text-xs; /* Use HSL for accent */
+}
+
+/* Custom callout styling */
+.custom-callout {
+  @apply border-l-4 p-4 my-6 rounded-r-md shadow-md;
+  /* border-color and icon color should be set by inline styles or more specific classes if variants are needed */
+}
+.custom-callout.info { /* Example variant */
+  @apply border-[hsl(var(--accent))] bg-[hsla(var(--accent),0.1)]; /* Use HSL for accent and accent with alpha */
+}
+.custom-callout.info .callout-icon {
+  @apply text-[hsl(var(--accent))]; /* Use HSL for accent */
+}
+.custom-callout p {
+  @apply text-sm text-foreground/90 mb-0; /* Override default prose p margin */
+}
+.custom-callout .callout-icon {
+  @apply mr-3 h-5 w-5 flex-shrink-0;
+}
