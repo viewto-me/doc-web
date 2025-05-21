@@ -3,7 +3,8 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef, type FormEvent } from 'react';
-import { Search, Loader2, CornerDownLeft, MessageSquare } from 'lucide-react';
+import Image from 'next/image'; // Added Image import
+import { Loader2, CornerDownLeft, MessageSquare } from 'lucide-react'; // Removed Search import
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -143,17 +144,25 @@ export function SearchDialog() {
     }
   };
 
+  const aiIconUrl = "https://storage.googleapis.com/publics-svg/aiIcon48px.svg";
+
   return (
     <>
       <Button
         variant="outline"
-        className="relative h-9 w-full justify-start rounded-md px-3 text-sm text-muted-foreground sm:pr-12 md:w-48 lg:w-72 shadow-sm"
+        className="relative h-9 w-full justify-start rounded-md px-3 text-sm text-muted-foreground sm:pr-12 md:w-48 lg:w-72 shadow-sm hover:text-accent-foreground"
         onClick={() => setIsOpen(true)}
       >
-        <Search className="mr-2 h-4 w-4" />
+        <Image 
+          src={aiIconUrl} 
+          alt="AI Search Icon" 
+          width={16} 
+          height={16} 
+          className="mr-2 h-4 w-4" 
+        />
         <span className="hidden lg:inline-flex">Pergunte a nossa AI...</span>
         <span className="inline-flex lg:hidden">Pergunte...</span>
-        <kbd className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 text-[10px] font-bold opacity-100 sm:flex text-muted-foreground">
+        <kbd className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 text-[10px] font-bold opacity-100 sm:flex text-muted-foreground group-hover:text-accent-foreground">
           Ctrl K
         </kbd>
       </Button>
@@ -171,7 +180,13 @@ export function SearchDialog() {
           
           <form onSubmit={handleSearch} className="px-6 pt-4">
             <div className="relative">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Image 
+                src={aiIconUrl} 
+                alt="AI Search Icon" 
+                width={16} 
+                height={16} 
+                className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" 
+              />
               <Textarea
                 ref={textareaRef}
                 placeholder="ex.: Como especifico o tipo de documento?"
@@ -229,3 +244,4 @@ export function SearchDialog() {
     </>
   );
 }
+
