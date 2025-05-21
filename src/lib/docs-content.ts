@@ -7,7 +7,7 @@ export const INTRODUCTION_MAIN = `
 <p>Nossa API é capaz de analisar dados desestruturados, seja uma conversa de chat, documentos pequenos ou grandes. Também oferecemos extração de dados de forma estruturada, permitindo que os usuários obtenham o máximo de informações tanto de documentos quanto de conversas.</p>
 
 <h2>Autenticação</h2>
-<p>Atualmente, a autenticação da API é realizada via JWT (JSON Web Token). No entanto, esta documentação ainda está em construção e, por enquanto, não inclui detalhes sobre o processo de autenticação. Consulte esta página futuramente para atualizações e instruções completas sobre como autenticar suas requisições.</p>
+<p>Para detalhes sobre como autenticar suas requisições à API, por favor, consulte a página <a href="/docs/authentication">Autenticação</a>.</p>
 `;
 export const INTRODUCTION_CODE = `
 <div style="margin-right: 30px;">
@@ -16,6 +16,88 @@ export const INTRODUCTION_CODE = `
 <pre><code>https://api.viewto.me</code></pre>
 </div>
 `;
+
+export const AUTHENTICATION_MAIN = `
+<h1>Como se Autenticar?</h1>
+<p>Nós utilizamos JWT (JSON Web Token) como principal método de autenticação para proteger nossas APIs.</p>
+<p>O processo de autenticação é dividido em duas etapas principais:</p>
+<ol>
+  <li><strong>Obtenção do Token de Acesso:</strong> Você precisará fazer uma requisição POST para o endpoint <code>https://api.viewto.me/auth</code>.</li>
+  <li><strong>Utilização do Token nas Requisições da API:</strong> Uma vez obtido o token, você o incluirá no cabeçalho <code>Authorization</code> de suas requisições para os demais endpoints da API, como <code>https://api.viewto.me/docs</code>.</li>
+</ol>
+
+<h2>1. Obtendo o Token de Acesso</h2>
+<p>Para obter o token de acesso, envie uma requisição POST para <code>https://api.viewto.me/auth</code>.</p>
+<p>Esta requisição requer os seguintes campos obrigatórios no corpo (body) JSON:</p>
+<ul>
+  <li><code>clientId</code>: Seu ID de cliente fornecido pela viewto.me.</li>
+  <li><code>clientSecret</code>: Seu segredo de cliente fornecido pela viewto.me.</li>
+</ul>
+<p>A viewto.me fornecerá os valores de <code>clientId</code> e <code>clientSecret</code> necessários para esta etapa.</p>
+
+<h2>2. Utilizando o Token nas Requisições da API</h2>
+<p>Após receber uma resposta bem-sucedida da chamada ao endpoint <code>/auth</code>, você encontrará o token de acesso (JWT) no payload da resposta.</p>
+<p>Para fazer chamadas autenticadas para outros endpoints da API (por exemplo, <code>https://api.viewto.me/docs</code>), você precisará incluir os seguintes cabeçalhos (headers) em suas requisições:</p>
+<ul>
+  <li><code>Authorization</code>: O valor deve ser <code>Bearer SEU_TOKEN_DE_ACESSO</code>, onde <code>SEU_TOKEN_DE_ACESSO</code> é o payload JWT obtido na etapa anterior.</li>
+  <li><code>x-api-key</code>: Sua chave de API, também fornecida pela viewto.me.</li>
+</ul>
+<p>O valor da <code>x-api-key</code> também será fornecido pela viewto.me.</p>
+`;
+
+export const AUTHENTICATION_CODE = `
+<div style="margin-right: 30px;">
+  <h2>Exemplo de Requisição para /auth</h2>
+  <p>A seguir, um exemplo de como fazer a requisição para obter o token de acesso usando cURL:</p>
+  <pre><code class="language-bash">
+curl --request POST \\
+  --url https://api.viewto.me/auth \\
+  --header 'Content-Type: application/json' \\
+  --data '{
+    "clientId": "SEU_CLIENT_ID",
+    "clientSecret": "SEU_CLIENT_SECRET"
+  }'
+  </code></pre>
+  <p>Lembre-se de substituir <code>SEU_CLIENT_ID</code> e <code>SEU_CLIENT_SECRET</code> pelos seus respectivos valores.</p>
+
+  <h2 class="mt-8">Exemplo de Requisição Autenticada para /docs</h2>
+  <p>Este é um exemplo de como utilizar o token obtido e sua API key para fazer uma requisição POST para o endpoint <code>https://api.viewto.me/docs</code>:</p>
+  <pre><code class="language-bash">
+curl --request POST \\
+  --url https://api.viewto.me/docs \\
+  --header 'Authorization: Bearer SEU_TOKEN_DE_ACESSO' \\
+  --header 'Content-Type: application/json' \\
+  --header 'x-api-key: SUA_API_KEY' \\
+  --data '{
+    "documents": [
+        {
+            "name": "rg",
+            "options": [
+                "dataValidadeRg",
+                "dataEmissaoRg",
+                "dataNascimento",
+                "numeroRg",
+                "estadoEmissaoRg",
+                "filiacaoMae",
+                "filiacaoPai",
+                "nacionalidade",
+                "nomeCompleto",
+                "numeroCpf",
+                "numeroRegistroRg",
+                "orgaoEmissorRg"
+            ]
+        }
+    ],
+    "docsType": "rg",
+    "docsURL": "https://storage.googleapis.com/publics-svg/contratoImg2.pdf",
+    "docsMimeType": "application/pdf",
+    "docsId": "1234"
+  }'
+  </code></pre>
+  <p>Substitua <code>SEU_TOKEN_DE_ACESSO</code> pelo token JWT retornado pela chamada ao <code>/auth</code> e <code>SUA_API_KEY</code> pela sua chave de API.</p>
+</div>
+`;
+
 
 export const API_STRUCTURE_OVERVIEW_MAIN = `
 <p>Esta seção descreve a estrutura geral das requisições para a API viewto.me e os campos comuns que você encontrará.</p>
@@ -77,6 +159,7 @@ export const DOCUMENTS_OBJECT_CODE = `
   <li><code>comprovanteResidencia</code> (Comprovante de Residência)</li>
   <li><code>contratoSocial</code> (Contrato Social / Estatuto Social)</li>
   <li><code>ataEleicaoDiretoria</code> (Ata de Eleição da Diretoria)</li>
+  <li><code>certidaoCasamento</code> (Certidão de Casamento)</li>
 </ul>
 `;
 
@@ -194,9 +277,22 @@ export const OPTIONS_ATA_ELEICAO_DIRETORIA_CONTENT = `
   <li><code>prazoMandatoAta</code></li>
   <li><code>dataFinalMandato</code></li>
   <li><code>ataRegistrada</code></li>
-
 </ul>
 `;
+
+export const OPTIONS_CERTIDAO_CASAMENTO_CONTENT = `
+<h3>Opções para 'certidaoCasamento'</h3>
+<ul>
+  <li><code>dataEmissaoCertidao</code></li>
+  <li><code>cpfParte</code> (para cada cônjuge)</li>
+  <li><code>dataNascParte</code> (para cada cônjuge)</li>
+  <li><code>nacionalidadeParte</code> (para cada cônjuge)</li>
+  <li><code>nomeParte</code> (para cada cônjuge)</li>
+  <li><code>regimeBens</code></li>
+</ul>
+<p>Nota: Para campos de 'parte' (cônjuge), especifique-os como opções individuais se desejar extrair informações de ambos os cônjuges, ou o sistema tentará extrair todos os campos relacionados às partes se a opção genérica 'partes' for usada (não recomendado para granularidade).</p>
+`;
+
 
 export const EXAMPLE_REQUEST_WITH_ID_MAIN = `
 <p>Exemplo de uma requisição onde o tipo de documento (<code>cnh</code>) é especificado via <code>docsType</code>.</p>
@@ -250,6 +346,7 @@ export const EXAMPLE_REQUEST_WITHOUT_ID_CODE = `
 export const QUICKSTART_MAIN = `
 <p>Siga estes passos para fazer sua primeira chamada à API:</p>
 <ol>
+  <li>Obtenha suas credenciais de API (<code>clientId</code>, <code>clientSecret</code>, <code>x-api-key</code>) e um token de acesso conforme descrito na seção <a href="/docs/authentication">Autenticação</a>.</li>
   <li>Escolha uma imagem ou documento PDF que você deseja analisar.</li>
   <li>Envie este documento para uma URL publicamente acessível.</li>
   <li>Construa um corpo de requisição JSON:
@@ -265,30 +362,36 @@ export const QUICKSTART_MAIN = `
       <li>Opcionalmente, adicione um <code>docsId</code> para sua referência.</li>
     </ul>
   </li>
-  <li>Envie uma requisição POST para <code>https://api.viewto.me/extract</code> (assumindo este endpoint, precisa de esclarecimento) com seu corpo JSON e o cabeçalho <code>Content-Type: application/json</code>.</li>
+  <li>Envie uma requisição POST para o endpoint desejado (ex: <code>https://api.viewto.me/docs</code>) com seu corpo JSON e os cabeçalhos de autenticação (<code>Authorization: Bearer SEU_TOKEN</code> e <code>x-api-key: SUA_API_KEY</code>) e o cabeçalho <code>Content-Type: application/json</code>.</li>
   <li>Inspecione a resposta para dados extraídos.</li>
 </ol>
 `;
 
 export const QUICKSTART_CODE = `
 <div style="margin-right: 30px;">
-<p><strong>Exemplo (Requisição POST Genérica):</strong></p>
+<p><strong>Exemplo (Requisição POST Genérica para /docs):</strong></p>
 <pre><code class="language-bash">
-curl -X POST https://api.viewto.me/extract \
--H "Content-Type: application/json" \
--d '{
-  "docsMimeType": "image/jpeg",
-  "docsId": "quickstart-test",
-  "documents": [
-    {
-      "name": "cnh",
-      "options": ["nomeCompleto", "numeroCpf", "dataNascimento"]
-    }
-  ],
-  "docsURL": "SUA_URL_DE_DOCUMENTO_PUBLICA_AQUI"
-}'
+# Primeiro, obtenha o token (veja a seção Autenticação)
+# Assumindo que você tem SEU_TOKEN_DE_ACESSO e SUA_API_KEY
+
+curl --request POST \\
+  --url https://api.viewto.me/docs \\
+  --header 'Authorization: Bearer SEU_TOKEN_DE_ACESSO' \\
+  --header 'x-api-key: SUA_API_KEY' \\
+  --header 'Content-Type: application/json' \\
+  --data '{
+    "docsMimeType": "image/jpeg",
+    "docsId": "quickstart-test",
+    "documents": [
+      {
+        "name": "cnh",
+        "options": ["nomeCompleto", "numeroCpf", "dataNascimento"]
+      }
+    ],
+    "docsURL": "SUA_URL_DE_DOCUMENTO_PUBLICA_AQUI"
+  }'
 </code></pre>
-<p>Substitua <code>SUA_URL_DE_DOCUMENTO_PUBLICA_AQUI</code> pela URL real do seu documento de teste.</p>
+<p>Substitua <code>SUA_URL_DE_DOCUMENTO_PUBLICA_AQUI</code>, <code>SEU_TOKEN_DE_ACESSO</code> e <code>SUA_API_KEY</code> pelos valores reais.</p>
 </div>
 `;
 
@@ -297,8 +400,9 @@ export const ERROR_CODES_CONTENT = `
 <p>Esta seção detalhará os códigos de status HTTP comuns e as respostas de erro retornadas pela API.</p>
 <ul>
   <li><strong>400 Bad Request (Requisição Inválida):</strong> A requisição estava malformada (por exemplo, campos obrigatórios ausentes, JSON inválido). O corpo da resposta pode conter mais detalhes.</li>
-  <li><strong>403 Forbidden (Proibido):</strong> A autenticação falhou ou o acesso foi negado (se a autenticação estiver implementada).</li>
-  <li><strong>404 Not Found (Não Encontrado):</strong> A <code>docsURL</code> especificada não pôde ser acessada ou o recurso não foi encontrado.</li>
+  <li><strong>401 Unauthorized (Não Autorizado):</strong> O token de acesso está ausente, é inválido ou expirou, ou a <code>x-api-key</code> está ausente ou é inválida.</li>
+  <li><strong>403 Forbidden (Proibido):</strong> Embora autenticado, o cliente não tem permissão para acessar o recurso solicitado.</li>
+  <li><strong>404 Not Found (Não Encontrado):</strong> A <code>docsURL</code> especificada não pôde ser acessada ou o recurso/endpoint da API não foi encontrado.</li>
   <li><strong>422 Unprocessable Entity (Entidade Não Processável):</strong> O documento estava acessível, mas não pôde ser processado (por exemplo, arquivo corrompido, variação de formato não suportada).</li>
   <li><strong>500 Internal Server Error (Erro Interno do Servidor):</strong> Ocorreu um erro inesperado em nosso servidor. Por favor, tente novamente mais tarde.</li>
 </ul>
@@ -308,6 +412,7 @@ export const ERROR_CODES_CONTENT = `
 export const BEST_PRACTICES_CONTENT = `
 <h1>Melhores Práticas</h1>
 <ul>
+  <li><strong>Gerenciamento Seguro de Credenciais:</strong> Armazene seu <code>clientSecret</code> e <code>x-api-key</code> de forma segura. Nunca os exponha no código do lado do cliente. Tokens de acesso (JWTs) também devem ser tratados com cuidado.</li>
   <li><strong>Use Especificidade Sempre que Possível:</strong> Se você souber o tipo do documento, fornecer <code>docsType</code> pode levar a um processamento mais rápido e preciso.</li>
   <li><strong>Otimize Imagens:</strong> Para documentos de imagem, garanta que estejam nítidos, bem iluminados e com resolução suficiente. Evite tamanhos de arquivo excessivamente grandes, se possível, sem sacrificar a legibilidade.</li>
   <li><strong>Lide com Tentativas (Retries):</strong> Implemente um mecanismo de nova tentativa com recuo exponencial (exponential backoff) para problemas de rede transitórios ou erros de servidor 5xx.</li>
@@ -531,13 +636,15 @@ export const RESPONSE_CONTRATO_SOCIAL_CODE = `
     {
       "cpfParte": "12345678900",
       "dataNascParte": "15/08/1980",
+      "enderecoBairroVia": "CENTRO",
       "enderecoCepVia": "12345678",
       "enderecoCidadeVia": "SAO PAULO",
-      "enderecoCompleto": "AV PAULISTA, 1000, SALA 123, SAO PAULO, SP",
+      "enderecoCompleto": "AV PAULISTA, 1000, SALA 123, CENTRO, SAO PAULO, SP, 12345678",
+      "enderecoComplementoVia": "SALA 123",
       "enderecoEstadoVia": "SP",
       "enderecoNomeVia": "PAULISTA",
       "enderecoNumeroVia": "1000",
-      "enderecoTipoVia": "AVENIDA"
+      "enderecoTipoVia": "AVENIDA",
       "estadoCivilParte": "CASADO",
       "nacionalidadeParte": "BRASILEIRA",
       "nomeParte": "CARLOS SILVA",
@@ -606,13 +713,15 @@ export const RESPONSE_ATA_ELEICAO_DIRETORIA_CODE = `
     {
       "cpfParte": "12345678900",
       "dataNascParte": "15/08/1980",
+      "enderecoBairroVia": "CENTRO",
       "enderecoCepVia": "12345678",
       "enderecoCidadeVia": "SAO PAULO",
-      "enderecoCompleto": "AV PAULISTA, 1000, SALA 123, SAO PAULO, SP",
+      "enderecoCompleto": "AV PAULISTA, 1000, SALA 123, CENTRO, SAO PAULO, SP, 12345678",
+      "enderecoComplementoVia": "SALA 123",
       "enderecoEstadoVia": "SP",
       "enderecoNomeVia": "PAULISTA",
       "enderecoNumeroVia": "1000",
-      "enderecoTipoVia": "AVENIDA"
+      "enderecoTipoVia": "AVENIDA",
       "estadoCivilParte": "CASADO",
       "nacionalidadeParte": "BRASILEIRA",
       "nomeParte": "CARLOS SILVA",
@@ -676,6 +785,8 @@ export const RESPONSE_COMPROVANTE_RESIDENCIA_CODE = `
 export const DOCUMENTATION_SECTIONS = `
 ${INTRODUCTION_MAIN}
 ${INTRODUCTION_CODE}
+${AUTHENTICATION_MAIN}
+${AUTHENTICATION_CODE}
 ${API_STRUCTURE_OVERVIEW_MAIN}
 ${DOCS_TYPE_CONTENT}
 ${DOCS_MIME_TYPE_CONTENT}
@@ -688,6 +799,7 @@ ${OPTIONS_CNH_CONTENT}
 ${OPTIONS_COMPROVANTE_RESIDENCIA_CONTENT}
 ${OPTIONS_CONTRATO_SOCIAL_CONTENT}
 ${OPTIONS_ATA_ELEICAO_DIRETORIA_CONTENT}
+${OPTIONS_CERTIDAO_CASAMENTO_CONTENT}
 ${EXAMPLE_REQUEST_WITH_ID_MAIN}
 ${EXAMPLE_REQUEST_WITH_ID_CODE}
 ${EXAMPLE_REQUEST_WITHOUT_ID_MAIN}
@@ -711,3 +823,6 @@ ${RESPONSE_COMPROVANTE_RESIDENCIA_CODE}
 `;
 
 
+
+
+    
