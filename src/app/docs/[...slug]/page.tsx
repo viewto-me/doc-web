@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: DocPageProps): Promise<Metada
   }
 
   return {
-    title: `${page.title} | viewto.me API Docs`,
+    title: `docs.viewto.me`,
     description: `Documentação para ${page.title} na API viewto.me.`,
   };
 }
