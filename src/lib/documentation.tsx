@@ -41,6 +41,15 @@ export const documentationTree: DocPage[] = [
     keywords: ['introducao', 'boas-vindas', 'url base', 'autenticacao', 'api'],
   },
   {
+    id: 'authentication',
+    title: 'Autenticação',
+    path: '/docs/authentication',
+    categoryTitle: 'Primeiros Passos',
+    mainContent: Content.AUTHENTICATION_MAIN,
+    codeContent: Content.AUTHENTICATION_CODE,
+    keywords: ['autenticacao', 'jwt', 'token', 'auth', 'client id', 'client secret', 'api key', 'seguranca'],
+  },
+  {
     id: 'api-structure',
     title: 'Estrutura da API',
     path: '/docs/api-structure',
@@ -87,7 +96,7 @@ export const documentationTree: DocPage[] = [
         categoryTitle: 'Campos da Requisição',
         mainContent: Content.DOCUMENTS_OBJECT_MAIN,
         codeContent: Content.DOCUMENTS_OBJECT_CODE, 
-        keywords: ['documents', 'documentos', 'objeto', 'name', 'options', 'opcoes', 'rg', 'cnh', 'comprovanteresidencia', 'contratosocial', 'ataeleicaodiretoria'],
+        keywords: ['documents', 'documentos', 'objeto', 'name', 'options', 'opcoes', 'rg', 'cnh', 'comprovanteresidencia', 'contratosocial', 'ataeleicaodiretoria', 'certidaocasamento'],
         children: [
             {
                 id: 'options-rg',
@@ -128,6 +137,14 @@ export const documentationTree: DocPage[] = [
                 categoryTitle: 'Opções de Documentos',
                 mainContent: Content.OPTIONS_ATA_ELEICAO_DIRETORIA_CONTENT,
                 keywords: ['ataeleicaodiretoria', 'ata de eleicao', 'opcoes', 'options', 'diretoria', 'mandato'],
+            },
+            {
+              id: 'options-certidao-casamento',
+              title: 'Certidão de Casamento',
+              path: '/docs/api-structure/documents-object/options-certidao-casamento',
+              categoryTitle: 'Opções de Documentos',
+              mainContent: Content.OPTIONS_CERTIDAO_CASAMENTO_CONTENT,
+              keywords: ['certidaocasamento', 'certidao de casamento', 'opcoes', 'options', 'campos', 'fields', 'regimeBens', 'partes'],
             },
         ],
       },
@@ -240,7 +257,7 @@ export const documentationTree: DocPage[] = [
     path: '/docs/error-codes',
     categoryTitle: 'Solução de Problemas',
     mainContent: Content.ERROR_CODES_CONTENT,
-    keywords: ['erros', 'codigos de status', 'status codes', 'resolucao de problemas', 'troubleshooting', '400', '500'],
+    keywords: ['erros', 'codigos de status', 'status codes', 'resolucao de problemas', 'troubleshooting', '400', '401', '403', '500'],
   },
   {
     id: 'best-practices',
@@ -300,7 +317,7 @@ export function getAllDocsContentForAI(): string {
           const keyGuess = Object.keys(Content).find(k => Content[k as keyof typeof Content] === page.mainContent && typeof Content[k as keyof typeof Content] === 'string');
           if (keyGuess) mainStr = Content[keyGuess as keyof typeof Content] as string;
         }
-        combinedText += `${mainStr}\n\n`;
+        combinedText += `Título da Página: ${page.title}\nConteúdo Principal:\n${mainStr}\n\n`;
 
         let codeStr = '';
         if (typeof page.codeContent === 'string') {
@@ -309,7 +326,9 @@ export function getAllDocsContentForAI(): string {
             const keyGuess = Object.keys(Content).find(k => Content[k as keyof typeof Content] === page.codeContent && typeof Content[k as keyof typeof Content] === 'string');
             if (keyGuess) codeStr = Content[keyGuess as keyof typeof Content] as string;
         }
-        combinedText += `${codeStr}\n\n`;
+        if (codeStr) {
+          combinedText += `Conteúdo de Código/Exemplos:\n${codeStr}\n\n`;
+        }
         
         if (page.children) {
           traverseAndCollect(page.children);
@@ -326,7 +345,19 @@ export function getAllDocsContentForAI(): string {
     }
     
     _allDocsText = _allDocsText
-      .replace(/<[^>]+>/g, ' ') // Strip HTML tags
+      .replace(/<pre><code class="language-(bash|json|html|css|javascript|typescript|python|java|csharp|php|ruby|go|rust|swift|kotlin|text)">([\s\S]*?)<\/code><\/pre>/gm, (match, lang, code) => `\n\`\`\`${lang}\n${code.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')}\n\`\`\`\n`) // Format code blocks
+      .replace(/<code>(.*?)<\/code>/g, '`$1`') // Inline code
+      .replace(/<a href="(.*?)">(.*?)<\/a>/g, '[$2]($1)') // Links
+      .replace(/<\/?strong>/g, '**') // Bold
+      .replace(/<\/?em>/g, '*')     // Italic
+      .replace(/<\/?ul>/g, '')      // Remove <ul> tags
+      .replace(/<\/?ol>/g, '')      // Remove <ol> tags
+      .replace(/<li>/g, '\n- ')     // List items
+      .replace(/<\/?p>/g, '\n')     // Paragraphs as newlines
+      .replace(/<h[1-6]>(.*?)<\/h[1-6]>/g, (match, p1) => `\n## ${p1}\n`) // Headlines
+      .replace(/<div style="margin-right: 30px;">([\s\S]*?)<\/div>/g, '$1') // Remove specific div
+      .replace(/<[^>]+>/g, ' ') // Strip remaining HTML tags
+      .replace(/\n\s*\n/g, '\n\n') // Normalize multiple newlines to two
       .replace(/\s+/g, ' ')    // Replace all occurrences of one or more whitespace characters with a single space
       .trim();                 // Remove leading/trailing whitespace
     
@@ -338,5 +369,7 @@ export function getAllDocsContentForAI(): string {
   return _allDocsText;
 }
 
+
+    
 
     
