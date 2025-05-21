@@ -168,18 +168,18 @@ export const documentationTree: DocPage[] = [
     keywords: ['exemplos', 'requests', 'requisicoes', 'json', 'uso'],
     children: [
       {
-        id: 'request-with-id',
+        id: 'request-with-type',
         title: 'Requisição com Identificação',
-        path: '/docs/examples/request-with-id',
+        path: '/docs/examples/request-with-type',
         categoryTitle: 'Exemplos de Requisição',
         mainContent: Content.EXAMPLE_REQUEST_WITH_ID_MAIN,
         codeContent: Content.EXAMPLE_REQUEST_WITH_ID_CODE,
         keywords: ['exemplo', 'requisicao identificada', 'docstype especificado'],
       },
       {
-        id: 'request-without-id',
+        id: 'request-without-type',
         title: 'Requisição sem Identificação',
-        path: '/docs/examples/request-without-id',
+        path: '/docs/examples/request-without-type',
         categoryTitle: 'Exemplos de Requisição',
         mainContent: Content.EXAMPLE_REQUEST_WITHOUT_ID_MAIN,
         codeContent: Content.EXAMPLE_REQUEST_WITHOUT_ID_CODE,
