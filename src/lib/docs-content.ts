@@ -284,13 +284,12 @@ export const OPTIONS_CERTIDAO_CASAMENTO_CONTENT = `
 <h3>Opções para 'certidaoCasamento'</h3>
 <ul>
   <li><code>dataEmissaoCertidao</code></li>
-  <li><code>cpfParte</code> (para cada cônjuge)</li>
-  <li><code>dataNascParte</code> (para cada cônjuge)</li>
-  <li><code>nacionalidadeParte</code> (para cada cônjuge)</li>
-  <li><code>nomeParte</code> (para cada cônjuge)</li>
+  <li><code>cpfParte</code></li>
+  <li><code>dataNascParte</code></li>
+  <li><code>nacionalidadeParte</code></li>
+  <li><code>nomeParte</code></li>
   <li><code>regimeBens</code></li>
 </ul>
-<p>Nota: Para campos de 'parte' (cônjuge), especifique-os como opções individuais se desejar extrair informações de ambos os cônjuges, ou o sistema tentará extrair todos os campos relacionados às partes se a opção genérica 'partes' for usada (não recomendado para granularidade).</p>
 `;
 
 
