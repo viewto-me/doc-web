@@ -41,6 +41,15 @@ export const documentationTree: DocPage[] = [
     keywords: ['introducao', 'boas-vindas', 'url base', 'autenticacao', 'api'],
   },
   {
+    id: 'quickstart',
+    title: 'Guia de Início Rápido',
+    path: '/docs/quickstart',
+    categoryTitle: 'Primeiros Passos',
+    mainContent: Content.QUICKSTART_MAIN,
+    codeContent: Content.QUICKSTART_CODE,
+    keywords: ['quickstart', 'inicio rapido', 'primeiros passos', 'primeira chamada', 'tutorial'],
+  },
+  {
     id: 'authentication',
     title: 'Autenticação',
     path: '/docs/authentication',
@@ -241,15 +250,6 @@ export const documentationTree: DocPage[] = [
         keywords: ['comprovante de residencia', 'endereco', 'response', 'resposta', 'json', 'campos', 'nomeCompleto'],
       },
     ],
-  },
-  {
-    id: 'quickstart',
-    title: 'Guia de Início Rápido',
-    path: '/docs/quickstart',
-    categoryTitle: 'Primeiros Passos',
-    mainContent: Content.QUICKSTART_MAIN,
-    codeContent: Content.QUICKSTART_CODE,
-    keywords: ['quickstart', 'inicio rapido', 'primeiros passos', 'primeira chamada', 'tutorial'],
   },
   {
     id: 'error-codes',
