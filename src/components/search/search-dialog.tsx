@@ -3,8 +3,8 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef, type FormEvent } from 'react';
-import Image from 'next/image'; // Added Image import
-import { Loader2, CornerDownLeft, MessageSquare } from 'lucide-react'; // Removed Search import
+import Image from 'next/image';
+import { Loader2, CornerDownLeft, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -28,7 +28,7 @@ function renderAnswerWithMarkdown(answer: string): React.ReactNode[] {
   parts.forEach((part, index) => {
     if (index % 2 === 0) {
       // This segment is treated as plain text
-      if (part.trim()) { // Only render if there's non-whitespace content
+      if (part.trim()) { 
         nodes.push(<p key={`text-${index}`} className="whitespace-pre-wrap">{part}</p>);
       }
     } else {
@@ -41,16 +41,12 @@ function renderAnswerWithMarkdown(answer: string): React.ReactNode[] {
         language = part.substring(0, firstNewlineIndex).trim();
         codeContent = part.substring(firstNewlineIndex + 1);
       } else {
-        // If no newline, the whole part might be just the language or malformed.
         language = part.trim();
-        // codeContent remains empty
       }
       
-      // Render pre block even if codeContent is empty, as it might be an intentional empty block like ```json\n```
-      // But avoid rendering if the whole part between ``` ``` was effectively empty or whitespace.
       if (part.trim() || language) { 
         nodes.push(
-          <pre key={`code-${index}`}> {/* prose styles from parent will apply for margins */}
+          <pre key={`code-${index}`}> 
             <code className={language ? `language-${language}` : ''}>{codeContent}</code>
           </pre>
         );
@@ -69,6 +65,7 @@ export function SearchDialog() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [isButtonHovered, setIsButtonHovered] = useState(false);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -81,7 +78,6 @@ export function SearchDialog() {
     return () => document.removeEventListener('keydown', down);
   }, []);
 
-  // Adjust textarea height
   useEffect(() => {
     if (isOpen && textareaRef.current) {
       textareaRef.current.style.height = 'auto'; 
@@ -145,16 +141,19 @@ export function SearchDialog() {
   };
 
   const aiIconUrl = "https://storage.googleapis.com/publics-svg/aiIcon48px.svg";
+  const aiIconUrlDark = "https://storage.googleapis.com/publics-svg/dark-aiIcon48px.svg";
 
   return (
     <>
       <Button
         variant="outline"
-        className="relative h-9 w-full justify-start rounded-md px-3 text-sm text-muted-foreground sm:pr-12 md:w-48 lg:w-72 shadow-sm hover:text-accent-foreground"
+        className="group relative h-9 w-full justify-start rounded-md px-3 text-sm text-muted-foreground sm:pr-12 md:w-48 lg:w-72 shadow-sm hover:text-accent-foreground"
         onClick={() => setIsOpen(true)}
+        onMouseEnter={() => setIsButtonHovered(true)}
+        onMouseLeave={() => setIsButtonHovered(false)}
       >
         <Image 
-          src={aiIconUrl} 
+          src={isButtonHovered ? aiIconUrlDark : aiIconUrl} 
           alt="AI Search Icon" 
           width={16} 
           height={16} 
@@ -181,7 +180,7 @@ export function SearchDialog() {
           <form onSubmit={handleSearch} className="px-6 pt-4">
             <div className="relative">
               <Image 
-                src={aiIconUrl} 
+                src={aiIconUrl} // Using the default white icon inside the dialog
                 alt="AI Search Icon" 
                 width={16} 
                 height={16} 
