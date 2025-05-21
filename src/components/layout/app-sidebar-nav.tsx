@@ -175,7 +175,7 @@ export const AppSidebarNav: FC<AppSidebarNavProps> = ({ onLinkClick }) => {
       <div className="p-4 border-b border-sidebar-border">
         <Input
           type="search"
-          placeholder="Pergunte a nossa AI..."
+          placeholder="Pesquisar na documentação..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full bg-background focus:bg-input"
