@@ -161,7 +161,7 @@ export function SearchDialog() {
         />
         <span className="hidden lg:inline-flex">Pergunte a nossa AI...</span>
         <span className="inline-flex lg:hidden">Pergunte...</span>
-        <kbd className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 text-[10px] font-bold opacity-100 sm:flex text-muted-foreground group-hover:text-accent-foreground">
+        <kbd className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 text-[10px] font-bold opacity-100 sm:flex text-muted-foreground">
           Ctrl K
         </kbd>
       </Button>
