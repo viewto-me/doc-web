@@ -34,7 +34,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${outfit.variable} font-sans antialiased min-h-screen flex flex-col`}>
         <head>
-          <link rel="icon" href="https://storage.googleapis.com/publics-svg/favicon32px.svg" sizes="any" />
+        <link rel="icon" href="https://storage.googleapis.com/publics-svg/favicon32px.svg" type="image/svg+xml" />
         </head>
         {children}
         <Toaster />
