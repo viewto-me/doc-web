@@ -791,7 +791,7 @@ export const ACCESS_BUCKET_AWS_S3_CONTENT = `
 <p>Siga os passos abaixo para configurar as permissões necessárias para que a API viewto.me possa ler documentos de dentro do seu bucket S3.</p>
 
 <h3>1. Abra o AWS CloudShell</h3>
-<p>Acesse o console da AWS e abra o CloudShell: <a href="https://console.aws.amazon.com/" target="_blank" rel="noopener noreferrer">https://console.aws.amazon.com/</a>.</p>
+<p>Acesse o CloudShell no console da AWS clicando em: <a href="https://console.aws.amazon.com/cloudshell" target="_blank" rel="noopener noreferrer">https://console.aws.amazon.com/cloudshell</a>.</p>
 
 <h3>2. Crie um Usuário IAM para a API viewto.me</h3>
 <p>Execute o seguinte comando no CloudShell para criar um usuário dedicado para a viewto.me:</p>
