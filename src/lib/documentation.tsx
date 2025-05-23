@@ -188,6 +188,25 @@ export const documentationTree: DocPage[] = [
     ],
   },
   {
+    id: 'access-buckets',
+    title: 'Acesso a Buckets',
+    path: '/docs/access-buckets',
+    categoryTitle: 'Integrações',
+    mainContent: Content.ACCESS_BUCKET_INTRO_MAIN,
+    keywords: ['bucket', 's3', 'aws', 'armazenamento', 'storage', 'permissões', 'integração'],
+    children: [
+      {
+        id: 'access-buckets-aws-s3',
+        title: 'AWS S3',
+        path: '/docs/access-buckets/aws-s3',
+        categoryTitle: 'Provedores de Nuvem',
+        mainContent: Content.ACCESS_BUCKET_AWS_S3_CONTENT,
+        // No codeContent here for single-column layout as requested
+        keywords: ['aws s3', 'amazon s3', 'bucket', 'iam', 'access key', 'secret key', 'configuração', 'permissionamento', 'cloudshell'],
+      },
+    ],
+  },
+  {
     id: 'response-por-documento',
     title: 'Response por Documento',
     path: '/docs/response-por-documento',
@@ -369,6 +388,8 @@ export function getAllDocsContentForAI(): string {
   return _allDocsText;
 }
 
+
+    
 
     
 
