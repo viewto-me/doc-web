@@ -399,7 +399,7 @@ export const ERROR_CODES_CONTENT = `
 <p>Esta seção detalhará os códigos de status HTTP comuns e as respostas de erro retornadas pela API.</p>
 <ul>
   <li><strong>400 Bad Request (Requisição Inválida):</strong> A requisição estava malformada (por exemplo, campos obrigatórios ausentes, JSON inválido). O corpo da resposta pode conter mais detalhes.</li>
-  <li><strong>401 Unauthorized (Não Autorizado):</strong> O token de acesso está ausente, é inválido ou expirou, ou a <code>x-api-key</code> está ausente ou é inválida.</li>
+  <li><strong>401 Unauthorized (Não Autorizado):</strong> O token de acesso está ausente, é inválido ou expirou, ou a <code>x-api-key</code> está ausente ou é inválida. Verifique a página de <a href="/docs/authentication">Autenticação</a>.</li>
   <li><strong>403 Forbidden (Proibido):</strong> Embora autenticado, o cliente não tem permissão para acessar o recurso solicitado.</li>
   <li><strong>404 Not Found (Não Encontrado):</strong> A <code>docsURL</code> especificada não pôde ser acessada ou o recurso/endpoint da API não foi encontrado.</li>
   <li><strong>422 Unprocessable Entity (Entidade Não Processável):</strong> O documento estava acessível, mas não pôde ser processado (por exemplo, arquivo corrompido, variação de formato não suportada).</li>
@@ -779,6 +779,61 @@ export const RESPONSE_COMPROVANTE_RESIDENCIA_CODE = `
 // CONTENT FOR "Response por Documento" ENDS HERE
 
 
+// CONTENT FOR "Acesso ao Bucket" STARTS HERE
+export const ACCESS_BUCKET_INTRO_MAIN = `
+<h1>Acesso ao Bucket</h1>
+<p>Esta seção descreve como configurar o acesso aos seus buckets de armazenamento em nuvem para que a API viewto.me possa ler os documentos que você deseja processar.</p>
+<p>No momento, o único provedor de armazenamento em nuvem suportado é o AWS S3.</p>
+`;
+
+export const ACCESS_BUCKET_AWS_S3_CONTENT = `
+<h2>Permitindo Acesso ao AWS S3</h2>
+<p>Siga os passos abaixo para configurar as permissões necessárias para que a API viewto.me possa ler documentos de dentro do seu bucket S3.</p>
+
+<h3>1. Abra o AWS CloudShell</h3>
+<p>Acesse o console da AWS e abra o CloudShell: <a href="https://console.aws.amazon.com/" target="_blank" rel="noopener noreferrer">https://console.aws.amazon.com/</a>.</p>
+
+<h3>2. Crie um Usuário IAM para a API viewto.me</h3>
+<p>Execute o seguinte comando no CloudShell para criar um usuário dedicado para a viewto.me:</p>
+<pre><code class="language-bash">aws iam create-user --user-name viewto-me</code></pre>
+
+<h3>3. Conceda Permissões de Leitura ao Usuário</h3>
+<p>Atribua a política <code>AmazonS3ReadOnlyAccess</code> ao usuário recém-criado. Isso permitirá que a viewto.me apenas leia objetos do seu bucket S3, sem permissões de escrita ou exclusão.</p>
+<pre><code class="language-bash">aws iam attach-user-policy --user-name viewto-me --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess</code></pre>
+
+<h3>4. Crie Chaves de Acesso para o Usuário</h3>
+<p>Gere um par de chaves de acesso (Access Key ID e Secret Access Key) para o usuário <code>viewto-me</code>:</p>
+<pre><code class="language-bash">aws iam create-access-key --user-name viewto-me</code></pre>
+<p>O console exibirá uma resposta JSON contendo as chaves. Guarde essas informações com segurança, pois a <code>SecretAccessKey</code> não poderá ser visualizada novamente.</p>
+<p>O payload da resposta será semelhante a este:</p>
+<pre><code class="language-json">
+{
+    "AccessKey": {
+        "UserName": "viewto-me",
+        "AccessKeyId": "ACCESS_KEY_ID_GERADA",
+        "Status": "Active",
+        "SecretAccessKey": "SECRET_ACCESS_KEY_GERADA",
+        "CreateDate": "AAAA-MM-DDTHH:MM:SS+00:00"
+    }
+}
+</code></pre>
+<p><strong>Importante:</strong> Copie todo este payload JSON.</p>
+
+<h3>5. Compartilhe as Chaves de Acesso com a viewto.me</h3>
+<p>Para compartilhar as credenciais de forma segura conosco, siga estes passos:</p>
+<ol>
+  <li>Copie todo o payload JSON gerado no passo anterior.</li>
+  <li>Acesse nosso portal One Time Secret: <a href="https://ots.viewto.me/" target="_blank" rel="noopener noreferrer">https://ots.viewto.me/</a>.</li>
+  <li>Cole o payload JSON completo no campo “Informação secreta”.</li>
+  <li>No campo “Expire in”, mude o tempo de expiração para <strong>3 dias</strong>.</li>
+  <li>Clique em “Criar segredo!”.</li>
+  <li>Envie o link gerado pelo One Time Secret para o seu contato na viewto.me.</li>
+</ol>
+<p>Após recebermos e configurarmos as chaves, você poderá utilizar a funcionalidade de leitura de documentos diretamente do seu bucket S3.</p>
+`;
+// CONTENT FOR "Acesso ao Bucket" ENDS HERE
+
+
 // This used to combine all content for AI, but now getAllDocsContentForAI in documentation.tsx handles it dynamically.
 // We keep this structure in case individual pieces are still needed elsewhere, though likely they aren't.
 export const DOCUMENTATION_SECTIONS = `
@@ -819,9 +874,13 @@ ${RESPONSE_ATA_ELEICAO_DIRETORIA_MAIN}
 ${RESPONSE_ATA_ELEICAO_DIRETORIA_CODE}
 ${RESPONSE_COMPROVANTE_RESIDENCIA_MAIN}
 ${RESPONSE_COMPROVANTE_RESIDENCIA_CODE}
+${ACCESS_BUCKET_INTRO_MAIN}
+${ACCESS_BUCKET_AWS_S3_CONTENT}
 `;
 
 
 
+
+    
 
     
