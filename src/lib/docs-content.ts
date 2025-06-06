@@ -1,23 +1,17 @@
 
 // This file contains the raw textual content for the documentation pages.
 
-export const INTRODUCTION_MAIN = `
+export const INTRODUCTION_CONTENT = `
 <p>Bem-vindo à documentação da API viewto.me!</p>
-
 <p>Nossa API é capaz de analisar dados desestruturados, seja uma conversa de chat, documentos pequenos ou grandes. Também oferecemos extração de dados de forma estruturada, permitindo que os usuários obtenham o máximo de informações tanto de documentos quanto de conversas.</p>
-
 <h2>Autenticação</h2>
 <p>Para detalhes sobre como autenticar suas requisições à API, por favor, consulte a página <a href="/docs/authentication">Autenticação</a>.</p>
-`;
-export const INTRODUCTION_CODE = `
-<div style="margin-right: 30px;">
 <h2>URL Base da API</h2>
 <p>Todos os endpoints da API são relativos à seguinte URL base:</p>
 <pre><code>https://api.viewto.me</code></pre>
-</div>
 `;
 
-export const AUTHENTICATION_MAIN = `
+export const AUTHENTICATION_CONTENT = `
 <h1>Como se Autenticar?</h1>
 <p>Nós utilizamos JWT (JSON Web Token) como principal método de autenticação para proteger nossas APIs.</p>
 <p>O processo de autenticação é dividido em duas etapas principais:</p>
@@ -25,7 +19,6 @@ export const AUTHENTICATION_MAIN = `
   <li><strong>Obtenção do Token de Acesso:</strong> Você precisará fazer uma requisição POST para o endpoint <code>https://api.viewto.me/auth</code>.</li>
   <li><strong>Utilização do Token nas Requisições da API:</strong> Uma vez obtido o token, você o incluirá no cabeçalho <code>Authorization</code> de suas requisições para os demais endpoints da API, como <code>https://api.viewto.me/docs</code>.</li>
 </ol>
-
 <h2>1. Obtendo o Token de Acesso</h2>
 <p>Para obter o token de acesso, envie uma requisição POST para <code>https://api.viewto.me/auth</code>.</p>
 <p>Esta requisição requer os seguintes campos obrigatórios no corpo (body) JSON:</p>
@@ -34,7 +27,6 @@ export const AUTHENTICATION_MAIN = `
   <li><code>clientSecret</code>: Seu segredo de cliente fornecido pela viewto.me.</li>
 </ul>
 <p>A viewto.me fornecerá os valores de <code>clientId</code> e <code>clientSecret</code> necessários para esta etapa.</p>
-
 <h2>2. Utilizando o Token nas Requisições da API</h2>
 <p>Após receber uma resposta bem-sucedida da chamada ao endpoint <code>/auth</code>, você encontrará o token de acesso (JWT) no payload da resposta.</p>
 <p>Para fazer chamadas autenticadas para outros endpoints da API (por exemplo, <code>https://api.viewto.me/docs</code>), você precisará incluir os seguintes cabeçalhos (headers) em suas requisições:</p>
@@ -43,13 +35,9 @@ export const AUTHENTICATION_MAIN = `
   <li><code>x-api-key</code>: Sua chave de API, também fornecida pela viewto.me.</li>
 </ul>
 <p>O valor da <code>x-api-key</code> também será fornecido pela viewto.me.</p>
-`;
-
-export const AUTHENTICATION_CODE = `
-<div style="margin-right: 30px;">
-  <h2>Exemplo de Requisição para /auth</h2>
-  <p>A seguir, um exemplo de como fazer a requisição para obter o token de acesso usando cURL:</p>
-  <pre><code class="language-bash">
+<h2>Exemplo de Requisição para /auth</h2>
+<p>A seguir, um exemplo de como fazer a requisição para obter o token de acesso usando cURL:</p>
+<pre><code class="language-bash">
 curl --request POST \\
   --url https://api.viewto.me/auth \\
   --header 'Content-Type: application/json' \\
@@ -57,12 +45,11 @@ curl --request POST \\
     "clientId": "SEU_CLIENT_ID",
     "clientSecret": "SEU_CLIENT_SECRET"
   }'
-  </code></pre>
-  <p>Lembre-se de substituir <code>SEU_CLIENT_ID</code> e <code>SEU_CLIENT_SECRET</code> pelos seus respectivos valores.</p>
-
-  <h2 class="mt-8">Exemplo de Requisição Autenticada para /docs</h2>
-  <p>Este é um exemplo de como utilizar o token obtido e sua API key para fazer uma requisição POST para o endpoint <code>https://api.viewto.me/docs</code>:</p>
-  <pre><code class="language-bash">
+</code></pre>
+<p>Lembre-se de substituir <code>SEU_CLIENT_ID</code> e <code>SEU_CLIENT_SECRET</code> pelos seus respectivos valores.</p>
+<h2 class="mt-8">Exemplo de Requisição Autenticada para /docs</h2>
+<p>Este é um exemplo de como utilizar o token obtido e sua API key para fazer uma requisição POST para o endpoint <code>https://api.viewto.me/docs</code>:</p>
+<pre><code class="language-bash">
 curl --request POST \\
   --url https://api.viewto.me/docs \\
   --header 'Authorization: Bearer SEU_TOKEN_DE_ACESSO' \\
@@ -93,13 +80,11 @@ curl --request POST \\
     "docsMimeType": "application/pdf",
     "docsId": "1234"
   }'
-  </code></pre>
-  <p>Substitua <code>SEU_TOKEN_DE_ACESSO</code> pelo token JWT retornado pela chamada ao <code>/auth</code> e <code>SUA_API_KEY</code> pela sua chave de API.</p>
-</div>
+</code></pre>
+<p>Substitua <code>SEU_TOKEN_DE_ACESSO</code> pelo token JWT retornado pela chamada ao <code>/auth</code> e <code>SUA_API_KEY</code> pela sua chave de API.</p>
 `;
 
-
-export const API_STRUCTURE_OVERVIEW_MAIN = `
+export const API_STRUCTURE_OVERVIEW_MAIN_CONTENT = `
 <p>Esta seção descreve a estrutura geral das requisições para a API viewto.me e os campos comuns que você encontrará.</p>
 <div class="custom-callout border-l-4 border-accent p-4 my-6 bg-muted/30 rounded-r-md shadow-md">
   <div class="flex items-start">
@@ -120,12 +105,10 @@ export const DOCS_MIME_TYPE_CONTENT = `
 <h2>docsMimeType</h2>
 <p><strong>Tipo:</strong> String (Obrigatório)</p>
 <p>Especifica o tipo MIME do arquivo que está sendo enviado. Os tipos suportados incluem:</p>
-<ul>
-  <li><code>image/jpeg</code> - Para arquivos JPEG (.jpeg, .jpg)</li>
-  <li><code>image/png</code> - Para arquivos PNG (.png)</li>
-  <li><code>image/gif</code> - Para arquivos GIF (.gif)</li>
-  <li><code>application/pdf</code> - Para arquivos PDF (.pdf)</li>
-</ul>
+<p><code>image/jpeg</code> - Para arquivos JPEG (.jpeg, .jpg)</p>
+<p><code>image/png</code> - Para arquivos PNG (.png)</p>
+<p><code>image/gif</code> - Para arquivos GIF (.gif)</p>
+<p><code>application/pdf</code> - Para arquivos PDF (.pdf)</p>
 `;
 
 export const DOCS_ID_CONTENT = `
@@ -140,7 +123,7 @@ export const DOCS_URL_CONTENT = `
 <p>A URL da qual nossa API acessará e consumirá a imagem ou documento para realizar a extração de informações.</p>
 `;
 
-export const DOCUMENTS_OBJECT_MAIN = `
+export const DOCUMENTS_OBJECT_CONTENT = `
 <p><strong>Tipo:</strong> Array de Objetos (Obrigatório)</p>
 <p>O campo <code>documents</code> é um array de objetos, onde cada objeto especifica um tipo de documento a ser analisado e as informações a serem extraídas dele. Essa estrutura permite flexibilidade, especialmente quando o tipo exato do documento é desconhecido (ou seja, <code>docsType</code> não é declarado).</p>
 <p>Cada objeto no array possui duas chaves:</p>
@@ -149,9 +132,6 @@ export const DOCUMENTS_OBJECT_MAIN = `
   <li><code>options</code>: (Array de Strings) Os campos específicos que você deseja extrair deste tipo de documento.</li>
 </ul>
 <p>Este design permite que você solicite a extração para múltiplos tipos de documentos potenciais em uma única chamada de API. Se o documento enviado corresponder a um dos <code>name</code>s especificados, as <code>options</code> correspondentes serão usadas para a extração.</p>
-`;
-
-export const DOCUMENTS_OBJECT_CODE = `
 <h3>Valores 'name' disponíveis:</h3>
 <ul>
   <li><code>rg</code> (Registro Geral - Identidade Brasileira)</li>
@@ -162,7 +142,6 @@ export const DOCUMENTS_OBJECT_CODE = `
   <li><code>certidaoCasamento</code> (Certidão de Casamento)</li>
 </ul>
 `;
-
 
 export const OPTIONS_RG_CONTENT = `
 <h3>Opções para 'rg'</h3>
@@ -292,13 +271,9 @@ export const OPTIONS_CERTIDAO_CASAMENTO_CONTENT = `
 </ul>
 `;
 
-
-export const EXAMPLE_REQUEST_WITH_ID_MAIN = `
+export const EXAMPLE_REQUEST_WITH_ID_CONTENT = `
 <p>Exemplo de uma requisição onde o tipo de documento (<code>cnh</code>) é especificado via <code>docsType</code>.</p>
 <p>Nota: O exemplo original usava <code>nomeVia</code> e <code>tipoVia</code> para CNH, que são campos típicos de comprovante de residência. Ajustado para campos mais comuns da CNH para este exemplo.</p>
-`;
-export const EXAMPLE_REQUEST_WITH_ID_CODE = `
-<div style="margin-right: 30px;">
 <pre><code class="language-json">
 {
   "docsType": "cnh",
@@ -313,15 +288,11 @@ export const EXAMPLE_REQUEST_WITH_ID_CODE = `
   "docsURL": "https://placehold.co/450x600.png"
 }
 </code></pre>
-</div>
 `;
 
-export const EXAMPLE_REQUEST_WITHOUT_ID_MAIN = `
+export const EXAMPLE_REQUEST_WITHOUT_ID_CONTENT = `
 <p>Exemplo de uma requisição onde <code>docsType</code> não é especificado. A API tentará corresponder o documento com os tipos listados no array <code>documents</code> (<code>cnh</code> ou <code>contratoSocial</code> neste caso).</p>
 <p>Nota: O exemplo original usava <code>nomeVia</code> e <code>tipoVia</code> para CNH. Ajustado para campos mais comuns da CNH.</p>
-`;
-export const EXAMPLE_REQUEST_WITHOUT_ID_CODE = `
-<div style="margin-right: 30px;">
 <pre><code class="language-json">
 {
   "docsMimeType": "image/jpeg",
@@ -339,10 +310,9 @@ export const EXAMPLE_REQUEST_WITHOUT_ID_CODE = `
   "docsURL": "https://placehold.co/600x800.png"
 }
 </code></pre>
-</div>
 `;
 
-export const QUICKSTART_MAIN = `
+export const QUICKSTART_CONTENT = `
 <p>Siga estes passos para fazer sua primeira chamada à API:</p>
 <ol>
   <li>Obtenha suas credenciais de API (<code>clientId</code>, <code>clientSecret</code>, <code>x-api-key</code>) e um token de acesso conforme descrito na seção <a href="/docs/authentication">Autenticação</a>.</li>
@@ -364,10 +334,6 @@ export const QUICKSTART_MAIN = `
   <li>Envie uma requisição POST para o endpoint desejado (ex: <code>https://api.viewto.me/docs</code>) com seu corpo JSON e os cabeçalhos de autenticação (<code>Authorization: Bearer SEU_TOKEN</code> e <code>x-api-key: SUA_API_KEY</code>) e o cabeçalho <code>Content-Type: application/json</code>.</li>
   <li>Inspecione a resposta para dados extraídos.</li>
 </ol>
-`;
-
-export const QUICKSTART_CODE = `
-<div style="margin-right: 30px;">
 <p><strong>Exemplo (Requisição POST Genérica para /docs):</strong></p>
 <pre><code class="language-bash">
 # Primeiro, obtenha o token (veja a seção Autenticação)
@@ -391,7 +357,6 @@ curl --request POST \\
   }'
 </code></pre>
 <p>Substitua <code>SUA_URL_DE_DOCUMENTO_PUBLICA_AQUI</code>, <code>SEU_TOKEN_DE_ACESSO</code> e <code>SUA_API_KEY</code> pelos valores reais.</p>
-</div>
 `;
 
 export const ERROR_CODES_CONTENT = `
@@ -421,9 +386,7 @@ export const BEST_PRACTICES_CONTENT = `
 </ul>
 `;
 
-// CONTENT FOR "Response por Documento" STARTS HERE
-
-export const RESPONSE_CERTIDAO_CASAMENTO_MAIN = `
+export const RESPONSE_CERTIDAO_CASAMENTO_CONTENT = `
 <h2>Certidão de Casamento</h2>
 <p>Campos retornados para Certidão de Casamento:</p>
 <ul>
@@ -438,9 +401,6 @@ export const RESPONSE_CERTIDAO_CASAMENTO_MAIN = `
   </li>
   <li><strong>regimeBens</strong>: String indicando o regime de bens do casamento, podendo ser Comunhão Parcial, Comunhão Universal, Separação Total e Participação Final nos Aquestos.</li>
 </ul>
-`;
-export const RESPONSE_CERTIDAO_CASAMENTO_CODE = `
-<div style="margin-right: 30px;">
 <p>Exemplo de resposta:</p>
 <pre><code class="language-json">
 {
@@ -462,10 +422,9 @@ export const RESPONSE_CERTIDAO_CASAMENTO_CODE = `
   "regimeBens": "Comunhão Parcial de Bens"
 }
 </code></pre>
-</div>
 `;
 
-export const RESPONSE_CNH_MAIN = `
+export const RESPONSE_CNH_CONTENT = `
 <h2>CNH (Carteira Nacional de Habilitação)</h2>
 <p>Campos retornados para CNH:</p>
 <ul>
@@ -495,9 +454,6 @@ export const RESPONSE_CNH_MAIN = `
     </ul>
   </li>
 </ul>
-`;
-export const RESPONSE_CNH_CODE = `
-<div style="margin-right: 30px;">
 <p>Exemplo de resposta:</p>
 <pre><code class="language-json">
 {
@@ -524,10 +480,9 @@ export const RESPONSE_CNH_CODE = `
   }
 }
 </code></pre>
-</div>
 `;
 
-export const RESPONSE_RG_MAIN = `
+export const RESPONSE_RG_CONTENT = `
 <h2>RG (Registro Geral)</h2>
 <p>Campos retornados para RG:</p>
 <ul>
@@ -554,9 +509,6 @@ export const RESPONSE_RG_MAIN = `
     </ul>
   </li>
 </ul>
-`;
-export const RESPONSE_RG_CODE = `
-<div style="margin-right: 30px;">
 <p>Exemplo de resposta:</p>
 <pre><code class="language-json">
 {
@@ -580,10 +532,9 @@ export const RESPONSE_RG_CODE = `
   }
 }
 </code></pre>
-</div>
 `;
 
-export const RESPONSE_CONTRATO_SOCIAL_MAIN = `
+export const RESPONSE_CONTRATO_SOCIAL_CONTENT = `
 <h2>Contrato Social</h2>
 <p>Campos retornados para Contrato Social:</p>
 <ul>
@@ -615,9 +566,6 @@ export const RESPONSE_CONTRATO_SOCIAL_MAIN = `
   <li><strong>dataLimiteMandadoContrato</strong>: String (Data limite do mandato no formato DD/MM/YYYY).</li>
   <li><strong>vedacoesContrato</strong>: Array de strings com as vedações contratuais.</li>
 </ul>
-`;
-export const RESPONSE_CONTRATO_SOCIAL_CODE = `
-<div style="margin-right: 30px;">
 <p>Exemplo de resposta:</p>
 <pre><code class="language-json">
 {
@@ -657,10 +605,9 @@ export const RESPONSE_CONTRATO_SOCIAL_CODE = `
   ]
 }
 </code></pre>
-</div>
 `;
 
-export const RESPONSE_ATA_ELEICAO_DIRETORIA_MAIN = `
+export const RESPONSE_ATA_ELEICAO_DIRETORIA_CONTENT = `
 <h2>Ata de Eleição da Diretoria</h2>
 <p>Campos retornados para Ata de Eleição da Diretoria:</p>
 <ul>
@@ -691,9 +638,6 @@ export const RESPONSE_ATA_ELEICAO_DIRETORIA_MAIN = `
   <li><strong>tipoAssinaturaContrato</strong>: String (Tipo de assinatura, ex: "isolada", "conjunta").</li>
   <li><strong>formaRepresentacaoContrato</strong>: Array de strings descrevendo a forma de representação contratual.</li>
 </ul>
-`;
-export const RESPONSE_ATA_ELEICAO_DIRETORIA_CODE = `
-<div style="margin-right: 30px;">
 <p>Exemplo de resposta:</p>
 <pre><code class="language-json">
 {
@@ -731,10 +675,9 @@ export const RESPONSE_ATA_ELEICAO_DIRETORIA_CODE = `
   "tipoAssinaturaContrato": "isolada"
 }
 </code></pre>
-</div>
 `;
 
-export const RESPONSE_COMPROVANTE_RESIDENCIA_MAIN = `
+export const RESPONSE_COMPROVANTE_RESIDENCIA_CONTENT = `
 <h2>Comprovante de Residência</h2>
 <p>Campos retornados para Comprovante de Residência:</p>
 <ul>
@@ -753,9 +696,6 @@ export const RESPONSE_COMPROVANTE_RESIDENCIA_MAIN = `
   </li>
   <li><strong>nomeCompleto</strong>: String (Nome completo da pessoa a quem o comprovante se refere).</li>
 </ul>
-`;
-export const RESPONSE_COMPROVANTE_RESIDENCIA_CODE = `
-<div style="margin-right: 30px;">
 <p>Exemplo de resposta:</p>
 <pre><code class="language-json">
 {
@@ -773,14 +713,39 @@ export const RESPONSE_COMPROVANTE_RESIDENCIA_CODE = `
   "nomeCompleto": "ANA MARIA SANTOS"
 }
 </code></pre>
-</div>
 `;
 
-// CONTENT FOR "Response por Documento" ENDS HERE
+export const RESPONSE_COMPROVANTE_PAGAMENTO_CONTENT = `
+<h2>Comprovante de Pagamento</h2>
+<p>Campos retornados para Comprovante de Pagamento:</p>
+<ul>
+  <li><strong>nomeTitularPagador</strong>: String (Nome completo do titular pagador).</li>
+  <li><strong>cpfTitularPagador</strong>: String (CPF do titular pagador).</li>
+  <li><strong>numeroBoleto</strong>: String (Número da linha digitável do boleto, se aplicável).</li>
+  <li><strong>idPagamento</strong>: String (Identificador único da transação de pagamento).</li>
+  <li><strong>dataPagamento</strong>: String (Data em que o pagamento foi efetuado ou será efetuado, no formato DD/MM/YYYY).</li>
+  <li><strong>dataAgendamentoPagamento</strong>: String (Data em que o pagamento foi agendado, no formato DD/MM/YYYY. Pode ser igual à dataPagamento se não for agendado).</li>
+  <li><strong>valorPagamento</strong>: String (Valor do pagamento, formatado com vírgula como separador decimal).</li>
+  <li><strong>pagamentoAgendado</strong>: Boolean (Indica se o pagamento foi agendado para uma data futura).</li>
+  <li><strong>cnpjRecebedor</strong>: String (CNPJ da entidade recebedora do pagamento).</li>
+</ul>
+<p>Exemplo de resposta:</p>
+<pre><code class="language-json">
+{
+  "nomeTitularPagador": "JOÃO SANTOS",
+  "cpfTitularPagador": "01234567890",
+  "numeroBoleto": "84630000001046003690000000000009362762129",
+  "idPagamento": "40BEC287709EBF18",
+  "dataPagamento": "05/06/2025",
+  "dataAgendamentoPagamento": "05/06/2025",
+  "valorPagamento": "85,45",
+  "pagamentoAgendado": true,
+  "cnpjRecebedor": "76535764000143"
+}
+</code></pre>
+`;
 
-
-// CONTENT FOR "Acesso ao Bucket" STARTS HERE
-export const ACCESS_BUCKET_INTRO_MAIN = `
+export const ACCESS_BUCKET_INTRO_MAIN_CONTENT = `
 <h1>Acesso ao Bucket</h1>
 <p>Esta seção descreve como configurar o acesso aos seus buckets de armazenamento em nuvem para que a API viewto.me possa ler os documentos que você deseja processar.</p>
 <p>No momento, o único provedor de armazenamento em nuvem suportado é o AWS S3.</p>
@@ -789,18 +754,14 @@ export const ACCESS_BUCKET_INTRO_MAIN = `
 export const ACCESS_BUCKET_AWS_S3_CONTENT = `
 <h2>Permitindo Acesso ao AWS S3</h2>
 <p>Siga os passos abaixo para configurar as permissões necessárias para que a API viewto.me possa ler documentos de dentro do seu bucket S3.</p>
-
 <h3>1. Abra o AWS CloudShell</h3>
 <p>Acesse o CloudShell no console da AWS clicando em: <a href="https://console.aws.amazon.com/cloudshell" target="_blank" rel="noopener noreferrer">https://console.aws.amazon.com/cloudshell</a>.</p>
-
 <h3>2. Crie um Usuário IAM para a API viewto.me</h3>
 <p>Execute o seguinte comando no CloudShell para criar um usuário dedicado para a viewto.me:</p>
 <pre><code class="language-bash">aws iam create-user --user-name viewto-me</code></pre>
-
 <h3>3. Conceda Permissões de Leitura ao Usuário</h3>
 <p>Atribua a política <code>AmazonS3ReadOnlyAccess</code> ao usuário recém-criado. Isso permitirá que a viewto.me apenas leia objetos do seu bucket S3, sem permissões de escrita ou exclusão.</p>
 <pre><code class="language-bash">aws iam attach-user-policy --user-name viewto-me --policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess</code></pre>
-
 <h3>4. Crie Chaves de Acesso para o Usuário</h3>
 <p>Gere um par de chaves de acesso (Access Key ID e Secret Access Key) para o usuário <code>viewto-me</code>:</p>
 <pre><code class="language-bash">aws iam create-access-key --user-name viewto-me</code></pre>
@@ -818,7 +779,6 @@ export const ACCESS_BUCKET_AWS_S3_CONTENT = `
 }
 </code></pre>
 <p><strong>Importante:</strong> Copie todo este payload JSON.</p>
-
 <h3>5. Compartilhe as Chaves de Acesso com a viewto.me</h3>
 <p>Para compartilhar as credenciais de forma segura conosco, siga estes passos:</p>
 <ol>
@@ -831,56 +791,36 @@ export const ACCESS_BUCKET_AWS_S3_CONTENT = `
 </ol>
 <p>Após recebermos e configurarmos as chaves, você poderá utilizar a funcionalidade de leitura de documentos diretamente do seu bucket S3.</p>
 `;
-// CONTENT FOR "Acesso ao Bucket" ENDS HERE
 
-
-// This used to combine all content for AI, but now getAllDocsContentForAI in documentation.tsx handles it dynamically.
-// We keep this structure in case individual pieces are still needed elsewhere, though likely they aren't.
 export const DOCUMENTATION_SECTIONS = `
-${INTRODUCTION_MAIN}
-${INTRODUCTION_CODE}
-${AUTHENTICATION_MAIN}
-${AUTHENTICATION_CODE}
-${API_STRUCTURE_OVERVIEW_MAIN}
+${INTRODUCTION_CONTENT}
+${AUTHENTICATION_CONTENT}
+${API_STRUCTURE_OVERVIEW_MAIN_CONTENT}
 ${DOCS_TYPE_CONTENT}
 ${DOCS_MIME_TYPE_CONTENT}
 ${DOCS_ID_CONTENT}
 ${DOCS_URL_CONTENT}
-${DOCUMENTS_OBJECT_MAIN}
-${DOCUMENTS_OBJECT_CODE}
+${DOCUMENTS_OBJECT_CONTENT}
 ${OPTIONS_RG_CONTENT}
 ${OPTIONS_CNH_CONTENT}
 ${OPTIONS_COMPROVANTE_RESIDENCIA_CONTENT}
 ${OPTIONS_CONTRATO_SOCIAL_CONTENT}
 ${OPTIONS_ATA_ELEICAO_DIRETORIA_CONTENT}
 ${OPTIONS_CERTIDAO_CASAMENTO_CONTENT}
-${EXAMPLE_REQUEST_WITH_ID_MAIN}
-${EXAMPLE_REQUEST_WITH_ID_CODE}
-${EXAMPLE_REQUEST_WITHOUT_ID_MAIN}
-${EXAMPLE_REQUEST_WITHOUT_ID_CODE}
-${QUICKSTART_MAIN}
-${QUICKSTART_CODE}
+${EXAMPLE_REQUEST_WITH_ID_CONTENT}
+${EXAMPLE_REQUEST_WITHOUT_ID_CONTENT}
+${QUICKSTART_CONTENT}
 ${ERROR_CODES_CONTENT}
 ${BEST_PRACTICES_CONTENT}
-${RESPONSE_CERTIDAO_CASAMENTO_MAIN}
-${RESPONSE_CERTIDAO_CASAMENTO_CODE}
-${RESPONSE_CNH_MAIN}
-${RESPONSE_CNH_CODE}
-${RESPONSE_RG_MAIN}
-${RESPONSE_RG_CODE}
-${RESPONSE_CONTRATO_SOCIAL_MAIN}
-${RESPONSE_CONTRATO_SOCIAL_CODE}
-${RESPONSE_ATA_ELEICAO_DIRETORIA_MAIN}
-${RESPONSE_ATA_ELEICAO_DIRETORIA_CODE}
-${RESPONSE_COMPROVANTE_RESIDENCIA_MAIN}
-${RESPONSE_COMPROVANTE_RESIDENCIA_CODE}
-${ACCESS_BUCKET_INTRO_MAIN}
+${RESPONSE_CERTIDAO_CASAMENTO_CONTENT}
+${RESPONSE_CNH_CONTENT}
+${RESPONSE_RG_CONTENT}
+${RESPONSE_CONTRATO_SOCIAL_CONTENT}
+${RESPONSE_ATA_ELEICAO_DIRETORIA_CONTENT}
+${RESPONSE_COMPROVANTE_RESIDENCIA_CONTENT}
+${RESPONSE_COMPROVANTE_PAGAMENTO_CONTENT}
+${ACCESS_BUCKET_INTRO_MAIN_CONTENT}
 ${ACCESS_BUCKET_AWS_S3_CONTENT}
 `;
-
-
-
-
-    
 
     
