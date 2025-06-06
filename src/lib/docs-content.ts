@@ -140,6 +140,7 @@ export const DOCUMENTS_OBJECT_CONTENT = `
   <li><code>contratoSocial</code> (Contrato Social / Estatuto Social)</li>
   <li><code>ataEleicaoDiretoria</code> (Ata de Eleição da Diretoria)</li>
   <li><code>certidaoCasamento</code> (Certidão de Casamento)</li>
+  <li><code>comprovantePagamento</code> (Comprovante de Pagamento)</li>
 </ul>
 `;
 
@@ -268,6 +269,22 @@ export const OPTIONS_CERTIDAO_CASAMENTO_CONTENT = `
   <li><code>nacionalidadeParte</code></li>
   <li><code>nomeParte</code></li>
   <li><code>regimeBens</code></li>
+</ul>
+`;
+
+export const OPTIONS_COMPROVANTE_PAGAMENTO_CONTENT = `
+<h3>Opções para 'comprovantePagamento'</h3>
+<p>As seguintes saídas estão disponíveis para extração de um comprovante de pagamento:</p>
+<ul>
+  <li><code>nomeTitularPagador</code></li>
+  <li><code>cpfTitularPagador</code></li>
+  <li><code>numeroBoleto</code></li>
+  <li><code>idPagamento</code></li>
+  <li><code>dataPagamento</code></li>
+  <li><code>dataAgendamentoPagamento</code></li>
+  <li><code>valorPagamento</code></li>
+  <li><code>pagamentoAgendado</code> (retorna true ou false)</li>
+  <li><code>cnpjRecebedor</code></li>
 </ul>
 `;
 
@@ -807,6 +824,7 @@ ${OPTIONS_COMPROVANTE_RESIDENCIA_CONTENT}
 ${OPTIONS_CONTRATO_SOCIAL_CONTENT}
 ${OPTIONS_ATA_ELEICAO_DIRETORIA_CONTENT}
 ${OPTIONS_CERTIDAO_CASAMENTO_CONTENT}
+${OPTIONS_COMPROVANTE_PAGAMENTO_CONTENT}
 ${EXAMPLE_REQUEST_WITH_ID_CONTENT}
 ${EXAMPLE_REQUEST_WITHOUT_ID_CONTENT}
 ${QUICKSTART_CONTENT}

@@ -97,7 +97,7 @@ export const documentationTree: DocPage[] = [
         path: '/docs/api-structure/documents-object',
         categoryTitle: 'Campos da Requisição',
         mainContent: Content.DOCUMENTS_OBJECT_CONTENT,
-        keywords: ['documents', 'documentos', 'objeto', 'name', 'options', 'opcoes', 'rg', 'cnh', 'comprovanteresidencia', 'contratosocial', 'ataeleicaodiretoria', 'certidaocasamento'],
+        keywords: ['documents', 'documentos', 'objeto', 'name', 'options', 'opcoes', 'rg', 'cnh', 'comprovanteresidencia', 'contratosocial', 'ataeleicaodiretoria', 'certidaocasamento', 'comprovantepagamento'],
         children: [
             {
                 id: 'options-rg',
@@ -146,6 +146,14 @@ export const documentationTree: DocPage[] = [
               categoryTitle: 'Opções de Documentos',
               mainContent: Content.OPTIONS_CERTIDAO_CASAMENTO_CONTENT,
               keywords: ['certidaocasamento', 'certidao de casamento', 'opcoes', 'options', 'campos', 'fields', 'regimeBens', 'partes'],
+            },
+            {
+              id: 'options-comprovante-pagamento',
+              title: 'Comprovante de Pagamento',
+              path: '/docs/api-structure/documents-object/options-comprovante-pagamento',
+              categoryTitle: 'Opções de Documentos',
+              mainContent: Content.OPTIONS_COMPROVANTE_PAGAMENTO_CONTENT,
+              keywords: ['comprovantepagamento', 'comprovante de pagamento', 'opcoes', 'options', 'campos', 'fields', 'boleto', 'transacao'],
             },
         ],
       },
