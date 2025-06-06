@@ -1,15 +1,13 @@
 
-
 import type { ReactNode } from 'react';
 import * as Content from './docs-content';
 
 export interface DocPage {
   id: string;
-  title: string; // Used for sidebar and metadata
+  title: string; 
   path: string;
-  categoryTitle?: string; // e.g., "Get Started", "API Structure" - for display above main title
-  mainContent: string | (() => ReactNode); // For left column (prose)
-  codeContent?: string | (() => ReactNode); // For right column (code examples, tables)
+  categoryTitle?: string; 
+  mainContent: string | (() => ReactNode); 
   children?: DocPage[];
   keywords?: string[];
 }
@@ -17,18 +15,16 @@ export interface DocPage {
 const createContentComponent = (htmlString: string): (() => ReactNode) => {
   // eslint-disable-next-line react/no-danger
   const HtmlContentRenderer = () => <div dangerouslySetInnerHTML={{ __html: htmlString }} />;
-  HtmlContentRenderer.displayName = 'HtmlContentRenderer'; // Added display name
+  HtmlContentRenderer.displayName = 'HtmlContentRenderer'; 
   return HtmlContentRenderer;
 };
 
-// Helper to ensure content is a renderable function
 const ensureRenderable = (content?: string | (() => ReactNode)): (() => ReactNode) | undefined => {
   if (typeof content === 'string') {
     return createContentComponent(content);
   }
-  return content; // It's already a function or undefined
+  return content; 
 };
-
 
 export const documentationTree: DocPage[] = [
   {
@@ -36,8 +32,7 @@ export const documentationTree: DocPage[] = [
     title: 'Introdução',
     path: '/docs/introduction',
     categoryTitle: 'Primeiros Passos',
-    mainContent: Content.INTRODUCTION_MAIN,
-    codeContent: Content.INTRODUCTION_CODE,
+    mainContent: Content.INTRODUCTION_CONTENT,
     keywords: ['introducao', 'boas-vindas', 'url base', 'autenticacao', 'api'],
   },
   {
@@ -45,8 +40,7 @@ export const documentationTree: DocPage[] = [
     title: 'Guia de Início Rápido',
     path: '/docs/quickstart',
     categoryTitle: 'Primeiros Passos',
-    mainContent: Content.QUICKSTART_MAIN,
-    codeContent: Content.QUICKSTART_CODE,
+    mainContent: Content.QUICKSTART_CONTENT,
     keywords: ['quickstart', 'inicio rapido', 'primeiros passos', 'primeira chamada', 'tutorial'],
   },
   {
@@ -54,8 +48,7 @@ export const documentationTree: DocPage[] = [
     title: 'Autenticação',
     path: '/docs/authentication',
     categoryTitle: 'Primeiros Passos',
-    mainContent: Content.AUTHENTICATION_MAIN,
-    codeContent: Content.AUTHENTICATION_CODE,
+    mainContent: Content.AUTHENTICATION_CONTENT,
     keywords: ['autenticacao', 'jwt', 'token', 'auth', 'client id', 'client secret', 'api key', 'seguranca'],
   },
   {
@@ -63,7 +56,7 @@ export const documentationTree: DocPage[] = [
     title: 'Estrutura da API',
     path: '/docs/api-structure',
     categoryTitle: 'Guia da API',
-    mainContent: Content.API_STRUCTURE_OVERVIEW_MAIN,
+    mainContent: Content.API_STRUCTURE_OVERVIEW_MAIN_CONTENT,
     keywords: ['api', 'estrutura', 'requisicao', 'campos'],
     children: [
       {
@@ -103,9 +96,8 @@ export const documentationTree: DocPage[] = [
         title: 'Opções dos Documentos',
         path: '/docs/api-structure/documents-object',
         categoryTitle: 'Campos da Requisição',
-        mainContent: Content.DOCUMENTS_OBJECT_MAIN,
-        codeContent: Content.DOCUMENTS_OBJECT_CODE, 
-        keywords: ['documents', 'documentos', 'objeto', 'name', 'options', 'opcoes', 'rg', 'cnh', 'comprovanteresidencia', 'contratosocial', 'ataeleicaodiretoria', 'certidaocasamento'],
+        mainContent: Content.DOCUMENTS_OBJECT_CONTENT,
+        keywords: ['documents', 'documentos', 'objeto', 'name', 'options', 'opcoes', 'rg', 'cnh', 'comprovanteresidencia', 'contratosocial', 'ataeleicaodiretoria', 'certidaocasamento', 'comprovantepagamento'],
         children: [
             {
                 id: 'options-rg',
@@ -155,6 +147,14 @@ export const documentationTree: DocPage[] = [
               mainContent: Content.OPTIONS_CERTIDAO_CASAMENTO_CONTENT,
               keywords: ['certidaocasamento', 'certidao de casamento', 'opcoes', 'options', 'campos', 'fields', 'regimeBens', 'partes'],
             },
+            {
+              id: 'options-comprovante-pagamento',
+              title: 'Comprovante de Pagamento',
+              path: '/docs/api-structure/documents-object/options-comprovante-pagamento',
+              categoryTitle: 'Opções de Documentos',
+              mainContent: Content.OPTIONS_COMPROVANTE_PAGAMENTO_CONTENT,
+              keywords: ['comprovantepagamento', 'comprovante de pagamento', 'opcoes', 'options', 'campos', 'fields', 'boleto', 'transacao'],
+            },
         ],
       },
     ],
@@ -172,8 +172,7 @@ export const documentationTree: DocPage[] = [
         title: 'Requisição com Identificação',
         path: '/docs/examples/request-with-type',
         categoryTitle: 'Exemplos de Requisição',
-        mainContent: Content.EXAMPLE_REQUEST_WITH_ID_MAIN,
-        codeContent: Content.EXAMPLE_REQUEST_WITH_ID_CODE,
+        mainContent: Content.EXAMPLE_REQUEST_WITH_ID_CONTENT,
         keywords: ['exemplo', 'requisicao identificada', 'docstype especificado'],
       },
       {
@@ -181,8 +180,7 @@ export const documentationTree: DocPage[] = [
         title: 'Requisição sem Identificação',
         path: '/docs/examples/request-without-type',
         categoryTitle: 'Exemplos de Requisição',
-        mainContent: Content.EXAMPLE_REQUEST_WITHOUT_ID_MAIN,
-        codeContent: Content.EXAMPLE_REQUEST_WITHOUT_ID_CODE,
+        mainContent: Content.EXAMPLE_REQUEST_WITHOUT_ID_CONTENT,
         keywords: ['exemplo', 'requisicao nao identificada', 'multiplos tipos de documentos'],
       },
     ],
@@ -192,7 +190,7 @@ export const documentationTree: DocPage[] = [
     title: 'Acesso a Buckets',
     path: '/docs/access-buckets',
     categoryTitle: 'Integrações',
-    mainContent: Content.ACCESS_BUCKET_INTRO_MAIN,
+    mainContent: Content.ACCESS_BUCKET_INTRO_MAIN_CONTENT,
     keywords: ['bucket', 's3', 'aws', 'armazenamento', 'storage', 'permissões', 'integração'],
     children: [
       {
@@ -201,7 +199,6 @@ export const documentationTree: DocPage[] = [
         path: '/docs/access-buckets/aws-s3',
         categoryTitle: 'Provedores de Nuvem',
         mainContent: Content.ACCESS_BUCKET_AWS_S3_CONTENT,
-        // No codeContent here for single-column layout as requested
         keywords: ['aws s3', 'amazon s3', 'bucket', 'iam', 'access key', 'secret key', 'configuração', 'permissionamento', 'cloudshell'],
       },
     ],
@@ -219,8 +216,7 @@ export const documentationTree: DocPage[] = [
         title: 'Certidão de Casamento',
         path: '/docs/response-por-documento/certidao-casamento',
         categoryTitle: 'Formatos de Resposta',
-        mainContent: Content.RESPONSE_CERTIDAO_CASAMENTO_MAIN,
-        codeContent: Content.RESPONSE_CERTIDAO_CASAMENTO_CODE,
+        mainContent: Content.RESPONSE_CERTIDAO_CASAMENTO_CONTENT,
         keywords: ['certidao casamento', 'casamento', 'response', 'resposta', 'json', 'campos', 'partes', 'regimeBens'],
       },
       {
@@ -228,8 +224,7 @@ export const documentationTree: DocPage[] = [
         title: 'CNH',
         path: '/docs/response-por-documento/cnh',
         categoryTitle: 'Formatos de Resposta',
-        mainContent: Content.RESPONSE_CNH_MAIN,
-        codeContent: Content.RESPONSE_CNH_CODE,
+        mainContent: Content.RESPONSE_CNH_CONTENT,
         keywords: ['cnh', 'carteira de habilitacao', 'response', 'resposta', 'json', 'campos', 'informacoesCarteira', 'informacoesPessoais'],
       },
       {
@@ -237,8 +232,7 @@ export const documentationTree: DocPage[] = [
         title: 'RG',
         path: '/docs/response-por-documento/rg',
         categoryTitle: 'Formatos de Resposta',
-        mainContent: Content.RESPONSE_RG_MAIN,
-        codeContent: Content.RESPONSE_RG_CODE,
+        mainContent: Content.RESPONSE_RG_CONTENT,
         keywords: ['rg', 'registro geral', 'identidade', 'response', 'resposta', 'json', 'campos', 'informacoesPessoais', 'informacoesRg'],
       },
       {
@@ -246,8 +240,7 @@ export const documentationTree: DocPage[] = [
         title: 'Contrato Social',
         path: '/docs/response-por-documento/contrato-social',
         categoryTitle: 'Formatos de Resposta',
-        mainContent: Content.RESPONSE_CONTRATO_SOCIAL_MAIN,
-        codeContent: Content.RESPONSE_CONTRATO_SOCIAL_CODE,
+        mainContent: Content.RESPONSE_CONTRATO_SOCIAL_CONTENT,
         keywords: ['contrato social', 'empresa', 'response', 'resposta', 'json', 'campos', 'partes', 'atividadesEmpresa'],
       },
       {
@@ -255,8 +248,7 @@ export const documentationTree: DocPage[] = [
         title: 'Ata de Eleição da Diretoria',
         path: '/docs/response-por-documento/ata-eleicao',
         categoryTitle: 'Formatos de Resposta',
-        mainContent: Content.RESPONSE_ATA_ELEICAO_DIRETORIA_MAIN,
-        codeContent: Content.RESPONSE_ATA_ELEICAO_DIRETORIA_CODE,
+        mainContent: Content.RESPONSE_ATA_ELEICAO_DIRETORIA_CONTENT,
         keywords: ['ata de eleicao', 'diretoria', 'response', 'resposta', 'json', 'campos', 'partes', 'ordemDiaAta'],
       },
       {
@@ -264,9 +256,16 @@ export const documentationTree: DocPage[] = [
         title: 'Comprovante de Residência',
         path: '/docs/response-por-documento/comprovante-residencia',
         categoryTitle: 'Formatos de Resposta',
-        mainContent: Content.RESPONSE_COMPROVANTE_RESIDENCIA_MAIN,
-        codeContent: Content.RESPONSE_COMPROVANTE_RESIDENCIA_CODE,
+        mainContent: Content.RESPONSE_COMPROVANTE_RESIDENCIA_CONTENT,
         keywords: ['comprovante de residencia', 'endereco', 'response', 'resposta', 'json', 'campos', 'nomeCompleto'],
+      },
+      {
+        id: 'response-comprovante-pagamento',
+        title: 'Comprovante de Pagamento',
+        path: '/docs/response-por-documento/comprovante-pagamento',
+        categoryTitle: 'Formatos de Resposta',
+        mainContent: Content.RESPONSE_COMPROVANTE_PAGAMENTO_CONTENT,
+        keywords: ['comprovante de pagamento', 'pagamento', 'response', 'resposta', 'json', 'campos', 'boleto', 'transacao'],
       },
     ],
   },
@@ -293,17 +292,15 @@ export function findPageByPath(path: string, tree: DocPage[] = documentationTree
     if (page.path === path) {
       return {
         ...page,
-        mainContent: ensureRenderable(page.mainContent) as () => ReactNode, // Ensure it's a function
-        codeContent: ensureRenderable(page.codeContent)
+        mainContent: ensureRenderable(page.mainContent) as () => ReactNode, 
       };
     }
     if (page.children) {
       const foundInChildren = findPageByPath(path, page.children);
       if (foundInChildren) {
         return {
-          ...foundInChildren, // children pages are already processed by recursive call
+          ...foundInChildren, 
           mainContent: ensureRenderable(foundInChildren.mainContent) as () => ReactNode,
-          codeContent: ensureRenderable(foundInChildren.codeContent)
         };
       }
     }
@@ -311,74 +308,97 @@ export function findPageByPath(path: string, tree: DocPage[] = documentationTree
   return undefined;
 }
 
-
 let _allDocsText: string | null = null;
 
-// This function now uses the pre-concatenated DOCUMENTATION_SECTIONS from docs-content.ts
+function extractTextFromHtml(html: string): string {
+  if (typeof html !== 'string') return '';
+  
+  // Attempt to preserve structure of code blocks before stripping general HTML
+  // This regex tries to capture language (optional) and content of code blocks
+  let text = html.replace(/<pre><code(?: class="language-(.*?)")?>([\s\S]*?)<\/code><\/pre>/g, (match, lang, code) => {
+    // Basic unescaping for common HTML entities in code
+    const unescapedCode = code
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&amp;/g, '&')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'");
+    return `\n\`\`\`${lang || ''}\n${unescapedCode.trim()}\n\`\`\`\n`;
+  });
+
+  // Handle inline <code>
+  text = text.replace(/<code>(.*?)<\/code>/g, '`$1`');
+  // Handle links
+  text = text.replace(/<a href="(.*?)">(.*?)<\/a>/g, '[$2]($1)');
+  // Handle headings
+  text = text.replace(/<h[1-6].*?>(.*?)<\/h[1-6]>/g, (match, content) => `\n## ${content}\n`);
+  // Handle bold and italic (simple cases)
+  text = text.replace(/<\/?strong>/g, '**');
+  text = text.replace(/<\/?em>/g, '*');
+  // Handle list items (very basic, doesn't distinguish ol/ul well after stripping parents)
+  text = text.replace(/<li>(.*?)<\/li>/g, '\n- $1');
+  // Remove div tags
+  text = text.replace(/<div.*?>|<\/div>/g, '\n');
+  // Strip all other HTML tags
+  text = text.replace(/<[^>]+>/g, ' ');
+  // Normalize whitespace: multiple spaces to one, multiple newlines to two
+  text = text.replace(/\s+/g, ' ').replace(/\n\s*\n/g, '\n\n').trim();
+  return text;
+}
+
+
 export function getAllDocsContentForAI(): string {
   if (_allDocsText === null) {
-    // For AI, we concatenate all main content and code content
     let combinedText = "";
-    function traverseAndCollect(pages: DocPage[]) {
+    function traverseAndCollect(pages: DocPage[], currentCategory?: string) {
       for (const page of pages) {
-        // For mainContent and codeContent, if it's a function, we can't directly get the string here easily.
-        // We rely on the string versions being available in docs-content.ts and picked up by DOCUMENTATION_SECTIONS.
-        // This function is now primarily a fallback or if direct string concatenation from the tree is preferred for some reason.
-        // The primary source for AI context is the `DOCUMENTATION_SECTIONS` string in `docs-content.ts`.
-        // However, to be robust, let's try to get content from string properties first.
+        let pageContent = "";
+        const categoryToUse = page.categoryTitle || currentCategory;
         
-        let mainStr = '';
-        if (typeof page.mainContent === 'string') {
-          mainStr = page.mainContent;
-        } else {
-          // Attempt to find corresponding string in Content if mainContent is a function. This is a heuristic.
-          // A more robust way would be to ensure all content for AI comes from explicitly defined strings.
-          const keyGuess = Object.keys(Content).find(k => Content[k as keyof typeof Content] === page.mainContent && typeof Content[k as keyof typeof Content] === 'string');
-          if (keyGuess) mainStr = Content[keyGuess as keyof typeof Content] as string;
+        if (categoryToUse) {
+          pageContent += `Categoria: ${categoryToUse}\n`;
         }
-        combinedText += `Título da Página: ${page.title}\nConteúdo Principal:\n${mainStr}\n\n`;
+        pageContent += `Título da Página: ${page.title}\n\n`;
 
-        let codeStr = '';
-        if (typeof page.codeContent === 'string') {
-          codeStr = page.codeContent;
-        } else if (page.codeContent) { // if it's a function
-            const keyGuess = Object.keys(Content).find(k => Content[k as keyof typeof Content] === page.codeContent && typeof Content[k as keyof typeof Content] === 'string');
-            if (keyGuess) codeStr = Content[keyGuess as keyof typeof Content] as string;
+        if (typeof page.mainContent === 'string') {
+          pageContent += extractTextFromHtml(page.mainContent);
+        } else {
+          // This case is tricky. If mainContent is a function, we can't directly extract its HTML string value here.
+          // We'd need to find the original string in docs-content.ts that produced this function.
+          // For simplicity in this function, we'll log a warning or skip if it's not a string.
+          // The ensureRenderable function turns strings into functions, so direct string content might be less common here.
+          // However, we define mainContent as string in docs-content.ts.
+          // Let's find the corresponding string from Content.* based on page.id or a heuristic.
+          const contentKey = Object.keys(Content).find(key => {
+            // Heuristic: if a Content export matches the mainContent function,
+            // OR if key naming convention matches page id. This is imperfect.
+            // A better approach is to always ensure raw strings are available for this function if functions are used in tree.
+            // Given current setup: mainContent in tree IS the string from Content.*
+            return false; // This part is complex and likely not needed if mainContent in tree is direct string
+          });
+          // If mainContent in the tree is the direct string from `docs-content.ts`, it should be handled by the string case.
+          // If it was processed into a function by `ensureRenderable` for `findPageByPath`, 
+          // we should ideally refer back to the original string source for AI content.
+          // For now, this function assumes `page.mainContent` can be a string directly from the tree.
+           console.warn(`mainContent for page '${page.title}' is a function and cannot be directly processed for AI text. Ensure raw string content is used for AI indexing if this is unintended.`);
         }
-        if (codeStr) {
-          combinedText += `Conteúdo de Código/Exemplos:\n${codeStr}\n\n`;
-        }
+        
+        combinedText += pageContent + "\n\n--------------------------------\n\n";
         
         if (page.children) {
-          traverseAndCollect(page.children);
+          traverseAndCollect(page.children, categoryToUse); // Pass down the current category
         }
       }
     }
     
-    // Prefer the explicitly concatenated string if available and comprehensive
-    if (Content.DOCUMENTATION_SECTIONS && Content.DOCUMENTATION_SECTIONS.length > 200) { // Basic check for non-empty
-        _allDocsText = Content.DOCUMENTATION_SECTIONS;
+    // Reset and use the comprehensive Content.DOCUMENTATION_SECTIONS if it's sufficiently populated.
+    // Otherwise, fall back to traversing the tree (though this is less ideal if content is functional).
+    if (Content.DOCUMENTATION_SECTIONS && Content.DOCUMENTATION_SECTIONS.length > 200) {
+        _allDocsText = extractTextFromHtml(Content.DOCUMENTATION_SECTIONS);
     } else {
         traverseAndCollect(documentationTree);
-        _allDocsText = combinedText;
+        _allDocsText = combinedText; // combinedText would already be processed by extractTextFromHtml if it were called inside loop
     }
-    
-    _allDocsText = _allDocsText
-      .replace(/<pre><code class="language-(bash|json|html|css|javascript|typescript|python|java|csharp|php|ruby|go|rust|swift|kotlin|text)">([\s\S]*?)<\/code><\/pre>/gm, (match, lang, code) => `\n\`\`\`${lang}\n${code.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')}\n\`\`\`\n`) // Format code blocks
-      .replace(/<code>(.*?)<\/code>/g, '`$1`') // Inline code
-      .replace(/<a href="(.*?)">(.*?)<\/a>/g, '[$2]($1)') // Links
-      .replace(/<\/?strong>/g, '**') // Bold
-      .replace(/<\/?em>/g, '*')     // Italic
-      .replace(/<\/?ul>/g, '')      // Remove <ul> tags
-      .replace(/<\/?ol>/g, '')      // Remove <ol> tags
-      .replace(/<li>/g, '\n- ')     // List items
-      .replace(/<\/?p>/g, '\n')     // Paragraphs as newlines
-      .replace(/<h[1-6]>(.*?)<\/h[1-6]>/g, (match, p1) => `\n## ${p1}\n`) // Headlines
-      .replace(/<div style="margin-right: 30px;">([\s\S]*?)<\/div>/g, '$1') // Remove specific div
-      .replace(/<[^>]+>/g, ' ') // Strip remaining HTML tags
-      .replace(/\n\s*\n/g, '\n\n') // Normalize multiple newlines to two
-      .replace(/\s+/g, ' ')    // Replace all occurrences of one or more whitespace characters with a single space
-      .trim();                 // Remove leading/trailing whitespace
     
     if (!_allDocsText) { 
       console.warn("Documentation content for AI resulted in an empty string after cleaning.");
@@ -387,10 +407,5 @@ export function getAllDocsContentForAI(): string {
   }
   return _allDocsText;
 }
-
-
-    
-
-    
 
     
